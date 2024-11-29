@@ -14,15 +14,18 @@ public class Boss1 : Enemy
     public float combo1Rate;
     public float combo2Rate;
     public float combo3Rate;
-    private float timer = 0f;
+    private float timer;
     private string currentAnimation;
+    private bool isFighting;
     protected override void Start()
     {
+
         animator = GetComponent<Animator>();
     }
 
     protected override void Update()
     {
+        timer += Time.deltaTime;
         if (Time.time > lastAttack + atkRate)
         {
             combo1Rate = Random.Range(1, 3);
@@ -93,5 +96,14 @@ public class Boss1 : Enemy
     void ResetAttackTime(float waitTime)
     {
         lastAttack = Time.time + waitTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlayerAttack"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Attack");
+        }
     }
 }

@@ -6,10 +6,11 @@ public class Fireball : MonoBehaviour
 {
    
     public float speed;
+    private Player player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameManager.instance.player;
     }
 
     // Update is called once per frame
@@ -22,8 +23,8 @@ public class Fireball : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //Implementar Take Damage
-            Debug.Log("Hit");
+            Destroy(gameObject);
+            player.TakeDamage(1);
         }
     }
 }
