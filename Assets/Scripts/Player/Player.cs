@@ -14,7 +14,10 @@ public class Player : MonoBehaviour
         //defeatedBosses = GameManager.instance;
         isDead = false;
         if (defeatedBosses > 1)
+        {
             maxHealth += 1;
+            //escudo.SetActive(true);
+        }
 
         health = maxHealth;
     }
