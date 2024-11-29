@@ -15,7 +15,7 @@ public class Fireball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 dir = transform.right;
+        Vector3 dir = -transform.right;
         transform.position += dir * speed * Time.deltaTime;
     }
     private void OnTriggerEnter(Collider other)
