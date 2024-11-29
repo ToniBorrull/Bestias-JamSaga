@@ -489,8 +489,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6741839431177611184, guid: 574ede46a9c45f740823a49a3081f068,
         type: 3}
+      propertyPath: firstAttack
+      value: 
+      objectReference: {fileID: 6076929571220431354, guid: 52707ca25aa87464f87746336fdf782d,
+        type: 3}
+    - target: {fileID: 6741839431177611184, guid: 574ede46a9c45f740823a49a3081f068,
+        type: 3}
       propertyPath: mask.m_Bits
       value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741839431177611184, guid: 574ede46a9c45f740823a49a3081f068,
+        type: 3}
+      propertyPath: fireballForce
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 8593945723078452363, guid: 574ede46a9c45f740823a49a3081f068,
         type: 3}

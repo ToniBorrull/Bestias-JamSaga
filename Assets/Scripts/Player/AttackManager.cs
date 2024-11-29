@@ -9,7 +9,7 @@ public class AttackManager : MonoBehaviour
     [Header("Ataques")]
     public GameObject firstAttack;
     public GameObject secondAttack;
-    public GameObject fourthAttack;
+    public int fireballForce;
 
     private Player player;
     private int defeatedBosses;
@@ -49,8 +49,18 @@ public class AttackManager : MonoBehaviour
     {
         //fireballs
         Vector3 vectorDirector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        vectorDirector.Normalize();
+        if (vectorDirector.sqrMagnitude == 0)
+        {
+            vectorDirector = transform.right;
+        }
+        else
+        {
+            vectorDirector.Normalize();
+        }
         Debug.Log(vectorDirector);
+        GameObject _ = Instantiate(firstAttack, transform.position + vectorDirector, Quaternion.identity);
+        _.GetComponent<Rigidbody>().AddForce(vectorDirector * fireballForce);
+        Destroy(_,3);
         //spawnataque
         //enviar fuerza al vector director
     }
