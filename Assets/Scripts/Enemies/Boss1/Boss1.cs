@@ -19,4 +19,8 @@ public class Boss1 : Enemy
 
     }
 
+    void Combo1()
+    {
+
+    }
 }

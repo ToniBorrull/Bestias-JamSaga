@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
-    private Player player;
+    public Player player;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetPlayer();
     }
 
     // Update is called once per frame
@@ -32,6 +32,6 @@ public class GameManager : MonoBehaviour
     }
     void GetPlayer()
     {
-        player = FindObjectOfType<Player>;
+        player = FindObjectOfType<Player>();
     }
 }
