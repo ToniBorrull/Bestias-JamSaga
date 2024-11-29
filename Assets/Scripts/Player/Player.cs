@@ -8,10 +8,11 @@ public class Player : MonoBehaviour
     public int maxHealth;
     public bool isDead;
     public int defeatedBosses;
-
+    private Collider playerColision;
     void Start()
     {
-        //defeatedBosses = GameManager.instance;
+        playerColision = GetComponent<Collider>();
+        defeatedBosses = GameManager.instance.defeatedEnemies;
         isDead = false;
         if (defeatedBosses > 1)
         {
@@ -41,6 +42,14 @@ public class Player : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         health -= dmg;
+        StartCoroutine(Invencibilidad());
+    }
+
+    private IEnumerator Invencibilidad()
+    {
+        playerColision.enabled = false;
+        yield return null;
+        playerColision.enabled = true;
     }
 
 }

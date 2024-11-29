@@ -6,6 +6,7 @@ public abstract class Enemy : MonoBehaviour
 {
     public float health;
     public float atkRate;
+    public bool isAttacking;
     protected abstract void Start();
 
     protected abstract void Update();

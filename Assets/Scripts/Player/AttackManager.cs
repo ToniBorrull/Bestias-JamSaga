@@ -60,8 +60,10 @@ public class AttackManager : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Enemy>(out Enemy en))
         {
-            en.TakeDamage(1);
-
+            if(!en.isAttacking)
+                en.TakeDamage(1);
+            else
+                player.TakeDamage(1);
         }
     }
 
