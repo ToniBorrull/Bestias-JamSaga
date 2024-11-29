@@ -54,36 +54,31 @@ public class Boss1 : Enemy
     }
     void Combo1(float waitTime)
     {
-        StartCoroutine(ControllerCombo1(waitTime));
+        ResetAttackTime(waitTime);
+
+        animator.SetBool("HighPos", true);
+        Instantiate(projectile, AttackSlotHigh.position, transform.rotation);
+
+        animator.SetBool("HighPos", false);
+        //Aqui se puede añadir un wait for animator clip (en el futuro)
+
+        animator.SetBool("LowPos", true);
+        Instantiate(projectile, AttackSlotLow.position, transform.rotation);
+        animator.SetBool("LowPos", false);
     }
     void Combo2(float waitTime)
     {
         Debug.Log("Combo2");
         ResetAttackTime(waitTime);
-        //animator.SetBool("MidPos", true);
+        animator.SetBool("MidPos", true);
         for (int i = 30; i > -30; i -= 15)
         {
-            Debug.Log("Repetition " + i);
             AttackSlotMid.rotation = Quaternion.Euler(0, 0, i);
             Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
         }
-        //animator.SetBool("MidPos", false);  
+        animator.SetBool("MidPos", false);  
     }
     void Combo3(float waitTime) {
-    }
-
-    IEnumerator ControllerCombo1(float waitTime)
-    {
-        ResetAttackTime(waitTime);
-
-        animator.SetBool("HighPos", true);
-        Instantiate(projectile, AttackSlotHigh.position, transform.rotation);
-        yield return new WaitForSeconds(waitTime);
-
-        //Aqui se puede añadir un wait for animator clip (en el futuro)
-        
-        animator.SetBool("HighPos", false);
-        Instantiate(projectile, AttackSlotLow.position, transform.rotation);
     }
 
     void ResetAttackTime(float waitTime)
