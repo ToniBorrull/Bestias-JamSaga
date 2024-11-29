@@ -9,10 +9,19 @@ public class AttackManager : MonoBehaviour
     [Header("Ataques")]
     public GameObject firstAttack;
     public GameObject secondAttack;
+
+    [Header("PrimerAtaque")]
     public int fireballForce;
+    public float cooldownAttack1;
+    private float cooldownTimer1 = 0;
+
+    [Header("SegundoAtaque")]
+    public float cooldownAttack2;
+    private float cooldownTimer2 = 0;
 
     private Player player;
     private int defeatedBosses;
+    
 
     void Start()
     {
@@ -23,16 +32,35 @@ public class AttackManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(defeatedBosses > 2)
+        if (cooldownTimer2 >= cooldownAttack2)
         {
-            if(Input.GetButtonDown("Q"))
-                FourthAttack();
+            if (defeatedBosses > 2)
+            {
+                if (Input.GetButtonDown("Q"))
+                {
+                    FourthAttack();
+                    cooldownTimer2 = 0;
+                }
+            }
         }
-
-        if(defeatedBosses > 0)
+        else
         {
-            if(Input.GetButtonDown("E"))
-                SecondAttack();
+            cooldownTimer2 += Time.deltaTime;
+        }
+        if (cooldownTimer1 >= cooldownAttack1)
+        {
+            if (defeatedBosses > 0)
+            {
+                if (Input.GetButtonDown("E"))
+                {
+                    SecondAttack();
+                    cooldownTimer1 = 0;
+                }
+            }
+            
+        }
+        else {
+            cooldownTimer1 += Time.deltaTime;
         }
 
 
@@ -61,14 +89,12 @@ public class AttackManager : MonoBehaviour
         GameObject _ = Instantiate(firstAttack, transform.position + vectorDirector, Quaternion.identity);
         _.GetComponent<Rigidbody>().AddForce(vectorDirector * fireballForce);
         Destroy(_,3);
-        //spawnataque
-        //enviar fuerza al vector director
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<Enemy>(out Enemy en))
+        if (other.gameObject.TryGetComponent(out Enemy en))
         {
             if(!en.isAttacking)
                 en.TakeDamage(1);
