@@ -14,18 +14,22 @@ public class Boss1 : Enemy
     public float combo1Rate;
     public float combo2Rate;
     public float combo3Rate;
-    private float timer;
+    private float fightTimer;
     private string currentAnimation;
-    private bool isFighting;
+    public bool isFighting;
     protected override void Start()
     {
-
+        isFighting = GameManager.instance.fightOn;
         animator = GetComponent<Animator>();
     }
 
     protected override void Update()
     {
-        timer += Time.deltaTime;
+        if (isFighting)
+        {
+            fightTimer += Time.deltaTime;
+        }
+       
         if (Time.time > lastAttack + atkRate)
         {
             combo1Rate = Random.Range(1, 3);
@@ -106,4 +110,13 @@ public class Boss1 : Enemy
             Debug.Log("Attack");
         }
     }
+    public void ActivateFight() 
+    {
+        isFighting = true;
+    }
+    public void DeactivateFight()
+    {
+        isFighting = false;
+    }
+
 }
