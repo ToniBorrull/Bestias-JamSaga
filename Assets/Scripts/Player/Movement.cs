@@ -10,24 +10,23 @@ public class Movement : MonoBehaviour
     public float maxX;
     public float speed;
 
-    private float movementY;
-    private float movementX;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        movementY += Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        movementX += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        float inputY = Input.GetAxis("Vertical");
+        float inputX = Input.GetAxis("Horizontal");
 
-        movementY = Mathf.Clamp(movementY, minY, maxY);
-        movementX = Mathf.Clamp(movementX, minX, maxX);
-        Vector3 _ = new Vector3(movementX, movementY, 0);
-        _.Normalize();
+        Vector3 movement = new Vector3(inputX, inputY, 0).normalized * speed * Time.deltaTime;
 
-        transform.position += _;
+        Vector3 newPosition = transform.position + movement;
+
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
+
+        transform.position = newPosition;
     }
 }
