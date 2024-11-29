@@ -25,8 +25,9 @@ public class Movement : MonoBehaviour
 
         movementY = Mathf.Clamp(movementY, minY, maxY);
         movementX = Mathf.Clamp(movementX, minX, maxX);
+        Vector3 _ = new Vector3(movementX, movementY, 0);
+        _.Normalize();
 
-
-        transform.position = new Vector3(movementX, movementY, 0);
+        transform.position += _;
     }
 }
