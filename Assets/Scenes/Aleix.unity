@@ -508,6 +508,11 @@ PrefabInstance:
       propertyPath: cooldownAttack1
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6741839431177611184, guid: 574ede46a9c45f740823a49a3081f068,
+        type: 3}
+      propertyPath: cooldownAttack2
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8593945723078452363, guid: 574ede46a9c45f740823a49a3081f068,
         type: 3}
       propertyPath: m_Name
