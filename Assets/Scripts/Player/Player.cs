@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         if (health < 0) Die();
     }
 
-    void Die()
+    private void Die()
     {
         if (!isDead)
         {
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void TakeDamage(float dmg)
+    public void TakeDamage(int dmg)
     {
         health -= dmg;
     }
