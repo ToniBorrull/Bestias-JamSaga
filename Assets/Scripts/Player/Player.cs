@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int health;
+    public float health;
 
-    private int maxHealth;
+    public float maxHealth;
+    public bool isDead;
 
     void Start()
     {
-        
+        isDead = false;
+        health = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        health = health <= 0 ? 0 : health;
+        if (health < 0) Die();
     }
 
     void Die()
     {
-
+        if (!isDead)
+        {
+            //animacion muerte
+            isDead = true;
+        }
     }
 
-    void TakeDamage()
+    void TakeDamage(float dmg)
     {
-
+        health -= dmg;
     }
 
 }
