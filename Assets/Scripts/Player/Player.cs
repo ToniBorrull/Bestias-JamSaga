@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float health;
-
-    public float maxHealth;
+    public int health;
+    public int maxHealth;
     public bool isDead;
+    public int defeatedBosses;
 
     void Start()
     {
+        //defeatedBosses = GameManager.instance;
         isDead = false;
+        if (defeatedBosses > 1)
+            maxHealth += 1;
+
         health = maxHealth;
     }
 
