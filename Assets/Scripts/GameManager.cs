@@ -37,15 +37,13 @@ public class GameManager : MonoBehaviour
         FightOn();
         if (Input.GetButtonDown("Pause"))
         {
-            if (paused)
-            {
-                paused = true;
-                Time.timeScale = 1.0f;
-            }
+
+            paused = !paused;
+            if(paused)
+                Time.timeScale = 0;
             else
             {
-                paused = false;
-                Time.timeScale = 0;
+                Time.timeScale = 1;
             }
         }
     }
