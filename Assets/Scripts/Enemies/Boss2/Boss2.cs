@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class Boss2 : Enemy
     private float timer;
     private float lastAttack = 0f;
     private bool attackCharged = false;
+    
 
     protected override void Start()
     {
@@ -41,13 +43,13 @@ public class Boss2 : Enemy
         //switch (chosenAttack)
         //{
         //    case 0:
-                Attack1();
+        //      Attack1();
         //        break;
         //    case 1:
         //        Attack2();
         //        break;
         //    case 2:
-        //        Attack3();
+                Attack3();
         //        break;
         //    default:
         //        break;
@@ -75,14 +77,25 @@ public class Boss2 : Enemy
         
         if (attackCharged)
         {
-            if (transform.position.x > minX && firstPhase)
+            if (firstPhase)
             {
-                transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
+                if (transform.position.x > minX)
+                {
+                    transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
+                }
+                else
+                {
+                    firstPhase = false;
+                }
             }
-            else if(transform.position.x < maxX && secondPhase)
+            else if (secondPhase)
             {
                 firstPhase = false;
-                transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
+                if (transform.position.x < maxX)
+                {
+                    transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
+                }
+                else { secondPhase = false; }
             }
             else
             {
@@ -108,14 +121,12 @@ public class Boss2 : Enemy
             //animación moverse
 
         }
-        else
+        else if (!secondPhase && !firstPhase)
         {
             secondPhase = true;
             firstPhase = true;
             attackCharged = false;
-            lastAttack = waitTime;
+            ResetAttackTime(waitTime);
         }
-
-
     }
 }

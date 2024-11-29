@@ -59,10 +59,10 @@ public class GameManager : MonoBehaviour
     }
     void FightOn()
     {
-        boss.ActivateFight();
+        //boss.ActivateFight();
     }
     void FightOff()
     {
-        boss.DeactivateFight();
+        //boss.DeactivateFight();
     }
 }

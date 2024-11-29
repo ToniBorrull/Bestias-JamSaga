@@ -156,6 +156,7 @@ MonoBehaviour:
   boss: {fileID: 0}
   defeatedEnemies: 5
   fightOn: 0
+  paused: 0
 --- !u!4 &704891204
 Transform:
   m_ObjectHideFlags: 0
@@ -617,7 +618,7 @@ PrefabInstance:
     - target: {fileID: 1774415511188098623, guid: 574ede46a9c45f740823a49a3081f068,
         type: 3}
       propertyPath: speed
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6741839431177611184, guid: 574ede46a9c45f740823a49a3081f068,
         type: 3}
