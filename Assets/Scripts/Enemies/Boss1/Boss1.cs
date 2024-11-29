@@ -6,11 +6,14 @@ using UnityEngine;
 public class Boss1 : Enemy
 {
     public Fireball projectile;
-    public Transform AttackSlot1;
-    public Transform AttackSlot2;
+    public Transform AttackSlotHigh;
+    public Transform AttackSlotMid;
+    public Transform AttackSlotLow;
     private Animator animator;
     private float lastAttack = 0f;
-    public float waitTime;
+    public float combo1Rate;
+    public float combo2Rate;
+    public float combo3Rate;
 
     protected override void Start()
     {
@@ -21,7 +24,7 @@ public class Boss1 : Enemy
     {
         if (Time.time > lastAttack + atkRate)
         {
-            waitTime = Random.Range(1, 3);
+            combo1Rate = Random.Range(1, 3);
             ChooseAttack();
         }
     }
@@ -31,46 +34,55 @@ public class Boss1 : Enemy
     void ChooseAttack()
     {
         //3 ataques de 0 a 2
-        float chosenAttack = Mathf.Floor(Random.Range(0, 3));
+        float chosenAttack = 1;//Mathf.Floor(Random.Range(0, 3));
 
         //Debug.Log("ChosenAttack: " + chosenAttack);
        
         switch (chosenAttack)
         {
             case 0:
-                Combo1();
+                Combo1(combo1Rate);
             break;
                 case 1:
-                    Combo2();
+                    Combo2(combo2Rate);
                 break;
                     case 2:
-                        Combo3();
+                        Combo3(combo3Rate);
                     break;
             default:
             break;
                     
         }
     }
-    void Combo1()
+    void Combo1(float waitTime)
     {
-        StartCoroutine(ControllerCombo(waitTime));
+        StartCoroutine(ControllerCombo1(waitTime));
     }
-    void Combo2() {
-       // StartCoroutine();
+    void Combo2(float waitTime)
+    {
+        lastAttack = Time.time + waitTime;
+        animator.SetBool("MidPos", true);
+        Instantiate(projectile, AttackSlotMid.position, transform.rotation);
+        AttackSlotMid.rotation = Quaternion.EulerAngles(transform.rotation.x, transform.rotation.y, 0);
+        Instantiate(projectile, AttackSlotMid.position, transform.rotation);
+        AttackSlotMid.rotation = Quaternion.EulerAngles(transform.rotation.x, transform.rotation.y, 30);
+        Instantiate(projectile, AttackSlotMid.position, transform.rotation);
+        animator.SetBool("MidPos", false);
+        //(ContollerCombo2(combo2Rate));
     }
-    void Combo3() {
+    void Combo3(float waitTime) {
     }
 
-    IEnumerator ControllerCombo(float waitTime)
+    IEnumerator ControllerCombo1(float waitTime)
     {
         lastAttack = Time.time + waitTime;
         animator.SetBool("HighPos", true);
-        Instantiate(projectile, AttackSlot1.position, transform.rotation);
+        Instantiate(projectile, AttackSlotHigh.position, transform.rotation);
         yield return new WaitForSeconds(waitTime);
 
         //Aqui se puede añadir un wait for animator clip (en el futuro)
         
         animator.SetBool("HighPos", false);
-        Instantiate(projectile, AttackSlot2.position, transform.rotation);
+        Instantiate(projectile, AttackSlotLow.position, transform.rotation);
     }
 }
