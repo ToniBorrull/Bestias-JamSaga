@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Boss1 boss;
     public int defeatedEnemies = 0;
     public bool fightOn;
+    public bool paused;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        paused = false;
         GetPlayer();
         GetBoss();
     }
@@ -33,6 +35,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         FightOn();
+        if (Input.GetButtonDown("Pause"))
+        {
+            if (paused)
+            {
+                paused = true;
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                paused = false;
+                Time.timeScale = 0;
+            }
+        }
     }
     void GetPlayer()
     {
@@ -40,7 +55,7 @@ public class GameManager : MonoBehaviour
     }
     void GetBoss()
     {
-        boss = FindObjectOfType<Boss1>();
+        //boss = FindObjectOfType<Boss1>();
     }
     void FightOn()
     {
