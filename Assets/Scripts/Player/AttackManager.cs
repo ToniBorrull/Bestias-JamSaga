@@ -27,7 +27,8 @@ public class AttackManager : MonoBehaviour
     {
         if(defeatedBosses > 2)
         {
-            FourthAttack();
+            if(Input.GetButtonDown("Q"))
+                FourthAttack();
         }
 
         if(defeatedBosses > 0)
@@ -42,14 +43,16 @@ public class AttackManager : MonoBehaviour
 
     void FourthAttack()
     {
-
+        Debug.Log("Cuarto ataque");
     }
 
 
     void SecondAttack()
     {
         //fireballs
-        Vector3 vectorDirector = new Vector3(Input.GetAxis("horizontal"), Input.GetAxis("vertical"), 0);
+        Vector3 vectorDirector = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        vectorDirector.Normalize();
+        Debug.Log(vectorDirector);
         //spawnataque
         //enviar fuerza al vector director
     }

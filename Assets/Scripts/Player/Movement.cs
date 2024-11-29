@@ -6,9 +6,12 @@ public class Movement : MonoBehaviour
 {
     public float minY;
     public float maxY;
+    public float minX;
+    public float maxX;
     public float speed;
 
-    private float movement;
+    private float movementY;
+    private float movementX;
     void Start()
     {
         
@@ -17,10 +20,13 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement += Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        movementY += Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        movementX += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 
-        movement = Mathf.Clamp(movement, minY, maxY);
+        movementY = Mathf.Clamp(movementY, minY, maxY);
+        movementX = Mathf.Clamp(movementX, minX, maxX);
 
-        transform.position = new Vector3(0, movement, 0);
+
+        transform.position = new Vector3(movementX, movementY, 0);
     }
 }
