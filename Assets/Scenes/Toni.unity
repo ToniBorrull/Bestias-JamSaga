@@ -357,14 +357,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028968731}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.2588186, w: 0.96592593}
   m_LocalPosition: {x: -3.82, y: 0.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1728414564}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
 --- !u!1 &1459553611
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,9 +628,12 @@ MonoBehaviour:
   atkRate: 3
   projectile: {fileID: 6054630767236962530, guid: c3bf0af6687ba2542aa6db61eeb8a2e8,
     type: 3}
-  AttackSlot1: {fileID: 620335498}
-  AttackSlot2: {fileID: 2095757023}
-  waitTime: 0
+  AttackSlotHigh: {fileID: 620335498}
+  AttackSlotMid: {fileID: 1028968732}
+  AttackSlotLow: {fileID: 2095757023}
+  combo1Rate: 1
+  combo2Rate: 1
+  combo3Rate: 1
 --- !u!1 &1905567387
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,9 +664,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fb35736c10ab394bbbe0d91065d5dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 0
   maxHealth: 0
   isDead: 0
+  defeatedBosses: 0
 --- !u!4 &1905567389
 Transform:
   m_ObjectHideFlags: 0
