@@ -34,9 +34,7 @@ public class Boss1 : Enemy
     void ChooseAttack()
     {
         //3 ataques de 0 a 2
-        float chosenAttack = Mathf.Floor(Random.Range(0, 3));
-
-        //Debug.Log("ChosenAttack: " + chosenAttack);
+        float chosenAttack = 1f;//Mathf.Floor(Random.Range(0, 3));
        
         switch (chosenAttack)
         {
@@ -60,21 +58,16 @@ public class Boss1 : Enemy
     }
     void Combo2(float waitTime)
     {
-
+        Debug.Log("Combo2");
         ResetAttackTime(waitTime);
-        animator.SetBool("MidPos", true);
-        AttackSlotMid.rotation = Quaternion.Euler(0, 0, 30);
-        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
-        AttackSlotMid.rotation = Quaternion.Euler(0, 0, 15);
-        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
-        AttackSlotMid.rotation = Quaternion.Euler(0, 0, 0);
-        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
-        AttackSlotMid.rotation = Quaternion.Euler(0, 0, -15);
-        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
-        AttackSlotMid.rotation = Quaternion.Euler(0,0, -30);
-        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
-        animator.SetBool("MidPos", false);
-        
+        //animator.SetBool("MidPos", true);
+        for (int i = 30; i > -30; i -= 15)
+        {
+            Debug.Log("Repetition " + i);
+            AttackSlotMid.rotation = Quaternion.Euler(0, 0, i);
+            Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
+        }
+        //animator.SetBool("MidPos", false);  
     }
     void Combo3(float waitTime) {
     }

@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e6ad17b7e230445815e402334a61d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
   atkRate: 3
   projectile: {fileID: 6054630767236962530, guid: c3bf0af6687ba2542aa6db61eeb8a2e8,
     type: 3}
@@ -698,6 +698,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minY: 0
   maxY: 0
+  minX: 0
+  maxX: 0
   speed: 0
 --- !u!1 &2095757022
 GameObject:
