@@ -32,6 +32,6 @@ public class GameManager : MonoBehaviour
     }
     void GetPlayer()
     {
-        player = FindObjectOfType<Player>;
+        player = FindObjectOfType<Player>();
     }
 }

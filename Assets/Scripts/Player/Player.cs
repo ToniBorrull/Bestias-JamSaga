@@ -5,7 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int health;
-    private float speed;
+
+    private int maxHealth;
+
     void Start()
     {
         
@@ -14,7 +16,17 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    void Die()
+    {
+
+    }
+
+    void TakeDamage()
+    {
+
     }
 
 }
