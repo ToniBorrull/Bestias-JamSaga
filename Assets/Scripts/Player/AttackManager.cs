@@ -9,7 +9,6 @@ public class AttackManager : MonoBehaviour
     [Header("Ataques")]
     public GameObject firstAttack;
     public GameObject secondAttack;
-    public GameObject thirdAttack;
     public GameObject fourthAttack;
 
     private Player player;
@@ -17,7 +16,6 @@ public class AttackManager : MonoBehaviour
 
     void Start()
     {
-
         player = GetComponent<Player>();
         defeatedBosses = player.defeatedBosses;
     }
@@ -63,6 +61,7 @@ public class AttackManager : MonoBehaviour
         if (other.gameObject.TryGetComponent<Enemy>(out Enemy en))
         {
             en.TakeDamage(1);
+
         }
     }
 
