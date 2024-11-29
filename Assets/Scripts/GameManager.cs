@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
-
+    private Player player;
 
     private void Awake()
     {
@@ -29,5 +29,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+    void GetPlayer()
+    {
+        player = FindObjectOfType<Player>;
     }
 }
