@@ -34,7 +34,7 @@ public class Boss1 : Enemy
     void ChooseAttack()
     {
         //3 ataques de 0 a 2
-        float chosenAttack = 1;//Mathf.Floor(Random.Range(0, 3));
+        float chosenAttack = Mathf.Floor(Random.Range(0, 3));
 
         //Debug.Log("ChosenAttack: " + chosenAttack);
        
@@ -60,22 +60,29 @@ public class Boss1 : Enemy
     }
     void Combo2(float waitTime)
     {
-        lastAttack = Time.time + waitTime;
+
+        ResetAttackTime(waitTime);
         animator.SetBool("MidPos", true);
-        Instantiate(projectile, AttackSlotMid.position, transform.rotation);
-        AttackSlotMid.rotation = Quaternion.EulerAngles(transform.rotation.x, transform.rotation.y, 0);
-        Instantiate(projectile, AttackSlotMid.position, transform.rotation);
-        AttackSlotMid.rotation = Quaternion.EulerAngles(transform.rotation.x, transform.rotation.y, 30);
-        Instantiate(projectile, AttackSlotMid.position, transform.rotation);
+        AttackSlotMid.rotation = Quaternion.Euler(0, 0, 30);
+        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
+        AttackSlotMid.rotation = Quaternion.Euler(0, 0, 15);
+        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
+        AttackSlotMid.rotation = Quaternion.Euler(0, 0, 0);
+        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
+        AttackSlotMid.rotation = Quaternion.Euler(0, 0, -15);
+        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
+        AttackSlotMid.rotation = Quaternion.Euler(0,0, -30);
+        Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
         animator.SetBool("MidPos", false);
-        //(ContollerCombo2(combo2Rate));
+        
     }
     void Combo3(float waitTime) {
     }
 
     IEnumerator ControllerCombo1(float waitTime)
     {
-        lastAttack = Time.time + waitTime;
+        ResetAttackTime(waitTime);
+
         animator.SetBool("HighPos", true);
         Instantiate(projectile, AttackSlotHigh.position, transform.rotation);
         yield return new WaitForSeconds(waitTime);
@@ -84,5 +91,10 @@ public class Boss1 : Enemy
         
         animator.SetBool("HighPos", false);
         Instantiate(projectile, AttackSlotLow.position, transform.rotation);
+    }
+
+    void ResetAttackTime(float waitTime)
+    {
+        lastAttack = Time.time + waitTime;
     }
 }
