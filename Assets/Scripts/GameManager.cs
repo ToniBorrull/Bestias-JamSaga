@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,14 +28,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         paused = false;
-        GetPlayer();
-        GetBoss();
+        //GetPlayer();
+        //GetBoss();
     }
 
     // Update is called once per frame
     void Update()
     {
-        FightOn();
+        //FightOn();
         if (Input.GetButtonDown("Pause"))
         {
 
@@ -67,5 +68,18 @@ public class GameManager : MonoBehaviour
     {
         GetPlayer();
         GetBoss();
+    }
+
+
+
+    //SCENE Manager
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void ChangeScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 }
