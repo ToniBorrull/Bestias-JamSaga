@@ -17,8 +17,8 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        float inputY = Input.GetAxis("Vertical");
-        float inputX = Input.GetAxis("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
+        float inputX = Input.GetAxisRaw("Horizontal");
 
         Vector3 movement = new Vector3(inputX, inputY, 0).normalized * speed * Time.deltaTime;
 

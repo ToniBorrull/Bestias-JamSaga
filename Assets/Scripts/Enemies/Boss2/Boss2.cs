@@ -9,6 +9,9 @@ public class Boss2 : Enemy
     public int speed;
     public float minX;
     public float maxX;
+    public GameObject spike;
+    public int spikeForce;
+    public float spikeDelay;
     private bool firstPhase = true;
     private bool secondPhase = true;
     private Animator animator;
@@ -39,21 +42,23 @@ public class Boss2 : Enemy
 
     void ChooseAttack()
     {
-        //float chosenAttack = Mathf.Floor(Random.Range(0, 3));
+        //float chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
         //switch (chosenAttack)
         //{
         //    case 0:
-        //      Attack1();
+        //        Attack1();
         //        break;
         //    case 1:
-        //        Attack2();
+                Attack2();
         //        break;
         //    case 2:
-                Attack3();
+        //        Attack3();
         //        break;
         //    default:
         //        break;
+    
         //}
+
     }
 
     void Attack1()
@@ -65,6 +70,13 @@ public class Boss2 : Enemy
     void Attack2()
     {
         //mucho pincho
+        ResetAttackTime(spikeDelay);
+        for (int i = 0;i<180;i+=30) {
+            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i));
+            _.GetComponent<Rigidbody>().AddForce(_.transform.up * spikeForce);
+            Destroy(_, 3);
+        }
+
     }
 
     void Attack3()
@@ -129,4 +141,5 @@ public class Boss2 : Enemy
             ResetAttackTime(waitTime);
         }
     }
+
 }
