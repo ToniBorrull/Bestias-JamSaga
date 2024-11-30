@@ -17,6 +17,7 @@ public class Boss1 : Enemy
     public float combo3Rate;
     private float fightTimer;
     private string currentAnimation;
+    private string lastAnimation;
     public bool isFighting;
     public float initialAtkRate = 2.0f;
     public float rateDecreaseInterval = 10f;
@@ -77,8 +78,6 @@ public class Boss1 : Enemy
     {
         ResetAttackTime(waitTime);
         PlayAnimation("HighPos");
-        Instantiate(projectile, AttackSlotHigh.position, transform.rotation);
-        PlayAnimation("Shoot");
     }
    
 
@@ -86,32 +85,45 @@ public class Boss1 : Enemy
     {
         ResetAttackTime(waitTime);
         PlayAnimation("LowPos");
-        Instantiate(projectile, AttackSlotLow.position, transform.rotation);
-        PlayAnimation("Shoot");
     }
     void Combo3(float waitTime) 
     {
         ResetAttackTime(waitTime);
         PlayAnimation("MidPos");
-        for (int i = 30; i > -30; i -= 15)
-        {
-            AttackSlotMid.rotation = Quaternion.Euler(0, 0, i);
-            Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
+    }
+
+    public void CreateBullet()
+    {
+        switch (lastAnimation) {
+            case "MidPos":
+            for (int i = 30; i > -30; i -= 15)
+            {
+                AttackSlotMid.rotation = Quaternion.Euler(0, 0, i);
+                Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
+            }
+                break;
+            case "LowPos":
+                Instantiate(projectile, AttackSlotLow.position, transform.rotation);
+                break;
+            case "HighPos":
+                Instantiate(projectile, AttackSlotHigh.position, transform.rotation);
+                break;
         }
-        PlayAnimation("Shoot");
-    }  
+    }
     void PlayAnimation(string animation)
     {
-        currentAnimation = animation;
-        animator.SetBool(animation, true);
-        Invoke("ResetAnimation", 0.1f);
+        if (lastAnimation != animation)
+        {
+            currentAnimation = animation;
+            animator.SetTrigger(animation);
+            lastAnimation = animation;
+        }
+        else
+        {
+            animator.SetTrigger("Shoot");
+        }
     }
-    void ResetAnimation()
-    {
-        animator.SetBool(currentAnimation, false);
-        currentAnimation = null;
-    }
-  
+
     void ResetAttackTime(float waitTime)
     {
         lastAttack = Time.time + waitTime;
