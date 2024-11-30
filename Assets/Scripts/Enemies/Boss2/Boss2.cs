@@ -38,6 +38,7 @@ public class Boss2 : Enemy
     private bool stunned = false;
     private float stunTimer = 0f;
     public float stunTime;
+    public float rotationSpeed;
     
     
 
@@ -101,6 +102,7 @@ public class Boss2 : Enemy
     {
         chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
         attacking = false;
+        transform.rotation = Quaternion.identity;
         switch (chosenAttack)
         {
                 case 0:
@@ -134,7 +136,7 @@ public class Boss2 : Enemy
             {
                 transform.position = Vector3.Lerp(transform.position, playerPos, attackSpeed * Time.deltaTime);
                 
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 30), 1); ;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 30), rotationSpeed*Time.deltaTime); ;
 
             }
             else if(secondPhase)
@@ -147,9 +149,9 @@ public class Boss2 : Enemy
 
             if (!firstPhase && !secondPhase)
             {
-                if (Vector3.Distance(transform.position, originalPosition) > 0.1f)
+                if (Vector3.Distance(transform.position, originalPosition) > 1f)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -30), 1); ;
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -30), rotationSpeed*Time.deltaTime); ;
 
                     transform.position = Vector3.Lerp(transform.position, originalPosition, attackSpeed * Time.deltaTime);
                 }
@@ -158,6 +160,7 @@ public class Boss2 : Enemy
                     firstPhase = true;
                     secondPhase = true;
                     gotPosition = false;
+                    transform.rotation = Quaternion.identity;
 
                 }
             }
@@ -236,7 +239,6 @@ public class Boss2 : Enemy
             if (transform.position.x >= maxX)
             {
                 secondPhase = false;
-                transform.rotation = Quaternion.identity;
 
             }
         }
