@@ -77,9 +77,13 @@ public class GameManager : MonoBehaviour
             boss2.isFighting = true;
         }
     }
-    void GetPlayer()
+    public Player GetPlayer()
     {
         player = FindObjectOfType<Player>();
+        if(player != null)
+            return player;
+
+        return null;
     }
     void GetBoss1()
     {

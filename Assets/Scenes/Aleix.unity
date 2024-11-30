@@ -158,8 +158,8 @@ MonoBehaviour:
   defeatedEnemies: 5
   fightOn: 0
   paused: 0
-  scene1: 
-  scene2: 
+  scene1: Toni
+  scene2: Aleix
   pause: {fileID: 0}
 --- !u!4 &704891204
 Transform:

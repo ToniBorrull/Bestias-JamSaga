@@ -39,7 +39,7 @@ public class Boss2 : Enemy
 
     protected override void Start()
     {
-        player = GameManager.instance.player;
+        player = GameManager.instance.GetPlayer();
         animator = GetComponent<Animator>();
     }
 
