@@ -114,7 +114,7 @@ public class Boss2 : Enemy
             {
                 firstPhase = false;
                 //animacion pegar
-                animator.SetBool("Tail", true);
+                animator.SetTrigger("Tail");
                 secondPhase = false;
             }
 
@@ -142,7 +142,7 @@ public class Boss2 : Enemy
             return;
         //mucho pincho
 
-        animator.SetBool("Spikes", true);
+        animator.SetTrigger("Spikes");
         for (int i = 0; i <= 180; i += 30) {
             GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i-90));
             _.GetComponent<Rigidbody>().AddForce(_.transform.up * spikeForce);
@@ -200,13 +200,13 @@ public class Boss2 : Enemy
     
     IEnumerator Persecution(float waitTime)
     {
-        //animación cargar rotación
-        animator.SetBool("Stampede", true);
+
+        
         yield return new WaitForSeconds(waitTime*0.5f);
         if (!attackCharged)
         {
             attackCharged = true;
-            //animación moverse
+            animator.SetBool("Stampede", true);
 
         }
         else if (!secondPhase && !firstPhase)
@@ -214,7 +214,7 @@ public class Boss2 : Enemy
             secondPhase = true;
             firstPhase = true;
             attackCharged = false;
-
+            animator.SetBool("Stampede", false);
         }
 
     }
