@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 1039414080}
   - component: {fileID: 1039414081}
   - component: {fileID: 1039414082}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Boss2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,6 +245,9 @@ MonoBehaviour:
   speed: 10
   minX: -9
   maxX: 9
+  spike: {fileID: 325970760236530311, guid: dfa8450cc0e42af4b9c5a1a9f58f0841, type: 3}
+  spikeForce: 100
+  spikeDelay: 0
 --- !u!212 &1039414082
 SpriteRenderer:
   m_ObjectHideFlags: 0

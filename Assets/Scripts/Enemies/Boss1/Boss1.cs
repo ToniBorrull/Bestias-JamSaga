@@ -30,9 +30,10 @@ public class Boss1 : Enemy
             fightTimer += Time.deltaTime;
         }
        
+        //
         if (Time.time > lastAttack + atkRate)
         {
-            combo1Rate = Random.Range(1, 3);
+            atkRate -= Time.deltaTime * 0.2f;
             ChooseAttack();
         }
     }
