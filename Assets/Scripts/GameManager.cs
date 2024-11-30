@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject curtainLeft;
     public GameObject curtainRight;
     public bool open;
+    public Light foco;
 
     private void Awake()
     {
@@ -71,8 +72,10 @@ public class GameManager : MonoBehaviour
             GetBoss1();
             boss2 = null;
             GetPlayer();
+            GetLights();
             //Esperar para abrir cortinas
             GetCurtains();
+            OpenLights();
             StartCoroutine(curtainsTrigger());
         }
         if(SceneManager.GetActiveScene().name == scene2)
@@ -125,6 +128,18 @@ public class GameManager : MonoBehaviour
         curtainRight = GameObject.FindGameObjectWithTag("RightCurtain");
     }
 
+    void GetLights()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag("Foco");
+        foco = obj.GetComponent<Light>();
+    }
+    void OpenLights()
+    {
+        if (foco.spotAngle < 60f)
+        {
+            foco.spotAngle += 1.0f * Time.deltaTime;
+        }
+    }
     void OpenCurtains()
     {
         if (open)
