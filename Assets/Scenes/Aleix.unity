@@ -153,10 +153,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  boss: {fileID: 0}
+  boss1: {fileID: 0}
+  boss2: {fileID: 0}
   defeatedEnemies: 5
   fightOn: 0
   paused: 0
+  scene1: 
+  scene2: 
 --- !u!4 &704891204
 Transform:
   m_ObjectHideFlags: 0
@@ -242,14 +245,15 @@ MonoBehaviour:
   health: 100
   atkRate: 2
   isAttacking: 1
+  isFighting: 0
   speed: 10
   minX: -9
   maxX: 9
   spike: {fileID: 325970760236530311, guid: dfa8450cc0e42af4b9c5a1a9f58f0841, type: 3}
   spikeForce: 100
-  spikeDelay: 0
+  spikeDelay: 2
   attackSpeed: 1
-  tailDelay: 0
+  tailDelay: 2
 --- !u!212 &1039414082
 SpriteRenderer:
   m_ObjectHideFlags: 0

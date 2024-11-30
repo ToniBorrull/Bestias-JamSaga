@@ -11,7 +11,8 @@ public class Boss2 : Enemy
     public float minX;
     public float maxX;
     private float persecutionTime=2;
-    float chosenAttack;
+    private float chosenAttack;
+    private bool timeChanged =false;
 
     public GameObject spike;
     public int spikeForce;
@@ -83,7 +84,7 @@ public class Boss2 : Enemy
 
     void Attack1()
     {
-        if (Time.time > lastAttack + atkRate)
+        if (Time.time > lastAttack + atkRate && timeChanged)
             ResetAttackTime(tailDelay);
 
         //coletazo
@@ -117,6 +118,7 @@ public class Boss2 : Enemy
                 {
                     firstPhase = true;
                     secondPhase = true;
+                    timeChanged = false;
                 }
             }
 
@@ -128,7 +130,7 @@ public class Boss2 : Enemy
     void Attack2()
     {
         //mucho pincho
-        if (Time.time > lastAttack + atkRate)
+        if (Time.time > lastAttack + atkRate && !timeChanged)
             ResetAttackTime(spikeDelay);
 
         for (int i = 0; i <= 180; i += 30) {
@@ -137,11 +139,13 @@ public class Boss2 : Enemy
             Destroy(_, 3);
         }
 
+        timeChanged = false;
+
     }
 
     void Attack3()
     {
-        if (Time.time > lastAttack + atkRate)
+        if (Time.time > lastAttack + atkRate && timeChanged)
             ResetAttackTime(persecutionTime);
         //persecucion
         if (!attackCharged)
@@ -200,6 +204,7 @@ public class Boss2 : Enemy
             secondPhase = true;
             firstPhase = true;
             attackCharged = false;
+            timeChanged = false;
 
         }
     }
