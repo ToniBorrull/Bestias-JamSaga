@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,14 +18,20 @@ public class Boss1 : Enemy
     private float fightTimer;
     private string currentAnimation;
     public bool isFighting;
+    public float initialAtkRate = 2.0f;
+    public float rateDecreaseInterval = 10f;
+    public float rateDecreaseAmount = 0.2f;
+    float rateTimer;
     protected override void Start()
     {
         isFighting = GameManager.instance.fightOn;
         animator = GetComponent<Animator>();
+        atkRate = initialAtkRate;
     }
 
     protected override void Update()
     {
+        /*
         if (isFighting)
         {
             fightTimer += Time.deltaTime;
@@ -35,6 +42,26 @@ public class Boss1 : Enemy
         {
             atkRate -= Time.deltaTime * 0.2f;
             ChooseAttack();
+        }*/
+
+        if (isFighting)
+        {
+            fightTimer += Time.deltaTime;
+
+            rateTimer += Time.deltaTime;
+            if (rateTimer >= rateDecreaseInterval)
+            {
+                rateTimer = 0f;
+                //Limite 0.5 segundos
+                atkRate = Mathf.Max(0.5f, atkRate - rateDecreaseAmount);
+                Debug.Log($"Nueva tasa de ataque: {atkRate}");
+            }
+
+            // Ataque del jefe
+            if (Time.time > lastAttack + atkRate)
+            {
+                ChooseAttack();
+            }
         }
     }
     protected override void Die()
@@ -42,8 +69,7 @@ public class Boss1 : Enemy
     }
     void ChooseAttack()
     {
-        //3 ataques de 0 a 2
-        float chosenAttack = Mathf.Floor(Random.Range(0, 3));
+        float chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
        
         switch (chosenAttack)
         {

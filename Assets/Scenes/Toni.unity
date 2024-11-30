@@ -5007,7 +5007,10 @@ MonoBehaviour:
   combo1Rate: 1
   combo2Rate: 1
   combo3Rate: 1
-  isFighting: 0
+  isFighting: 1
+  initialAtkRate: 2
+  rateDecreaseInterval: 10
+  rateDecreaseAmount: 0.2
 --- !u!1 &2095757022
 GameObject:
   m_ObjectHideFlags: 0
