@@ -42,7 +42,6 @@ public class Player : MonoBehaviour
             rb.constraints = RigidbodyConstraints.None;
             Vector3 randomTorque = new Vector3(Random.Range(1, 5), Random.Range(2, 3), Random.Range(1, 2));
             rb.AddTorque(randomTorque, ForceMode.Impulse);
-            rb.isKinematic = true;
         StartCoroutine(ReturnMenu());
         
             

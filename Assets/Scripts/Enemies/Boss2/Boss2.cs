@@ -141,7 +141,7 @@ public class Boss2 : Enemy
             {
                 transform.position = Vector3.Lerp(transform.position, playerPos, attackSpeed * Time.deltaTime);
                 
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 30), rotationSpeed*Time.deltaTime); ;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 15), rotationSpeed*Time.deltaTime); ;
 
             }
             else if(secondPhase)
@@ -156,7 +156,7 @@ public class Boss2 : Enemy
             {
                 if (Vector3.Distance(transform.position, originalPosition) > 1f)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -30), rotationSpeed*Time.deltaTime); ;
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -15), rotationSpeed*Time.deltaTime); ;
 
                     transform.position = Vector3.Lerp(transform.position, originalPosition, attackSpeed * Time.deltaTime);
                 }

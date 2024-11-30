@@ -6,6 +6,8 @@ public class AttackManager : MonoBehaviour
 {
     public LayerMask mask;
     public float distanceFromPlayer;
+    private Rigidbody rb;
+    private float knockbackForce = 10;
     [Header("Ataques")]
     public GameObject firstAttack;
     public GameObject secondAttack;
@@ -21,17 +23,29 @@ public class AttackManager : MonoBehaviour
 
     private Player player;
     private int defeatedBosses;
+    private Vector3 target;
+    public bool knockbacking = false;
     
 
     void Start()
     {
         player = GetComponent<Player>();
         defeatedBosses = player.defeatedBosses;
+        rb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (knockbacking)
+        {
+            transform.position = Vector3.Lerp(transform.position, target, knockbackForce*Time.deltaTime);
+            if (Vector3.Distance(transform.position, target) <= 2)
+            {
+                knockbacking = false;
+            }
+        }
         if (cooldownTimer2 >= cooldownAttack2)
         {
             if (defeatedBosses > 2)
@@ -94,13 +108,42 @@ public class AttackManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out Enemy en))
+        Debug.Log("A");
+        if (other.gameObject.TryGetComponent(out Boss1 en))
         {
-            if(!en.isAttacking)
+            Debug.Log("E");
+            if (!en.isFighting)
+            {
                 en.TakeDamage(1);
+                Knockback();
+            }
             else
+            {
                 player.TakeDamage(1);
+                Knockback();
+            }
+
+
         }
+        if (other.gameObject.TryGetComponent(out Boss2 en2))
+        {
+            if (!en2.isAttacking)
+            {
+                en2.TakeDamage(1);
+                Knockback();
+            }
+            else
+            {
+                player.TakeDamage(1);
+                Knockback();
+            }
+        }
+    }
+
+    void Knockback()
+    {
+        knockbacking = true;
+        target = new Vector3(transform.position.x-3,transform.position.y,transform.position.z);
     }
 
 }

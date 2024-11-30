@@ -23,6 +23,11 @@ public class Boss1 : Enemy
     public float rateDecreaseInterval = 10f;
     public float rateDecreaseAmount = 0.2f;
     float rateTimer;
+
+
+    public float chillTime = 3;
+    private float chillTimer = 0;
+
     protected override void Start()
     {
         isFighting = GameManager.instance.fightOn;
@@ -32,6 +37,8 @@ public class Boss1 : Enemy
 
     protected override void Update()
     {
+        //Debug.Log(isFighting);
+        //Debug.Log(attacksDone);
         if (isFighting)
         {
             fightTimer += Time.deltaTime;
@@ -50,14 +57,32 @@ public class Boss1 : Enemy
                 ChooseAttack();
             }
         }
+        else
+        {
+            if(chillTimer < chillTime)
+            {
+                Debug.Log("Chilling");
+                chillTimer += Time.deltaTime;
+            }
+            else
+            {
+                Debug.Log("He dejado de chillear");
+                attacksDone = 0;
+                isFighting = true;
+                chillTimer = 0;
+            }
+        }
     }
     protected override void Die()
     {
+        Destroy(gameObject);
     }
     void ChooseAttack()
     {
+        Stunned();
+        AttackDone();
         float chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
-       
+        Debug.Log(attacksDone);
         switch (chosenAttack)
         {
             case 0:
@@ -73,6 +98,11 @@ public class Boss1 : Enemy
             break;
                     
         }
+    }
+
+    void Stunned()
+    {
+        isFighting = attacksDone >= 5 ? false : true;
     }
     void Combo1(float waitTime)
     {

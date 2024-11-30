@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,16 +12,21 @@ public class GameManager : MonoBehaviour
     public Boss1 boss1;
     public Boss2 boss2;
     public int defeatedEnemies = 0;
-    public bool fightOn;
+    public bool fightOn = true;
     public bool paused;
     public string scene1;
     public string scene2;
+    public string menuScene;
     public GameObject pause;
     public GameObject curtainLeft;
     public GameObject curtainRight;
     public bool open;
     public Light foco;
     public bool done;
+
+    public UnityEngine.UI.Button Play;
+    public UnityEngine.UI.Button Options;
+    public UnityEngine.UI.Button Exit;
 
     private void Awake()
     {
@@ -37,6 +43,7 @@ public class GameManager : MonoBehaviour
   
     void Start()
     {
+        fightOn = true;
         paused = false;
         open = false;
         done = false;
@@ -45,34 +52,36 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        { 
-        /*
-        if (Input.GetButtonDown("Pause"))
         {
-            GetCanvas();
-            paused = !paused;
-            if (paused)
+            /*
+            if (Input.GetButtonDown("Pause"))
             {
-               if(!pause.activeInHierarchy)
-                    pause.SetActive(true);
-                Time.timeScale = 0;
-                if(boss1 != null)
+                GetCanvas();
+                paused = !paused;
+                if (paused)
                 {
-                    boss1.isFighting = false;
-                }
-                if(boss2 != null)
+                   if(!pause.activeInHierarchy)
+                        pause.SetActive(true);
+                    Time.timeScale = 0;
+                    if(boss1 != null)
+                    {
+                        boss1.isFighting = false;
+                    }
+                    if(boss2 != null)
+                    {
+                        boss2.isFighting = false;
+                    }
+                }else
                 {
-                    boss2.isFighting = false;
-                }
-            }else
-            {
-                pause.SetActive(false);
-                Time.timeScale = 1;
-            }*/
-        
+                    pause.SetActive(false);
+                    Time.timeScale = 1;
+                }*/
+
 
             //Get objects by scene
-            if(SceneManager.GetActiveScene().name == scene1)
+
+
+                if (SceneManager.GetActiveScene().name == scene1)
             {
                 GetBoss1();
                 boss2 = null;
@@ -99,6 +108,9 @@ public class GameManager : MonoBehaviour
         
         }
     }
+
+
+
     public Player GetPlayer()
     {
         player = FindObjectOfType<Player>();
@@ -169,10 +181,6 @@ public class GameManager : MonoBehaviour
     }
 
     //SCENE Manager
-    public void Exit()
-    {
-        Application.Quit();
-    }
 
     public void ChangeScene(string scene)
     {

@@ -7,7 +7,7 @@ public abstract class Enemy : MonoBehaviour
     public float health;
     public float atkRate;
     public bool isAttacking;
-    public int attacksDone;
+    public int attacksDone = 0;
     protected abstract void Start();
 
     protected abstract void Update();
@@ -16,7 +16,8 @@ public abstract class Enemy : MonoBehaviour
     {
         health -= dmg;
         health = health <= 0 ? 0 : health;
-        if (health < 0) Die();
+        Debug.Log(health);
+        if (health <= 0) Die();
     }
     protected abstract void Die();
 

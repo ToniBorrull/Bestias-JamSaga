@@ -11489,6 +11489,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8320315213612980694, guid: 82fdb1737cf08f941ad1900dfb3d170f,
+        type: 3}
+      propertyPath: health
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 442294745605071210, guid: 82fdb1737cf08f941ad1900dfb3d170f, type: 3}
     - {fileID: 4377978624789355325, guid: 82fdb1737cf08f941ad1900dfb3d170f, type: 3}
@@ -11543,7 +11548,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
