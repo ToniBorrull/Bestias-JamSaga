@@ -11,9 +11,11 @@ public class MenuController : MonoBehaviour
         Application.Quit();
     }
 
-    public void Play()
+    public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+        GameManager.instance.OnSceneChange();
     }
+
 
 }

@@ -53,14 +53,19 @@ public class GameManager : MonoBehaviour
     }
     void GetBoss()
     {
-        //boss = FindObjectOfType<Boss1>();
+        boss = FindObjectOfType<Boss1>();
     }
     void FightOn()
     {
-        //boss.ActivateFight();
+        boss.ActivateFight();
     }
     void FightOff()
     {
-        //boss.DeactivateFight();
+        boss.DeactivateFight();
+    }
+    public void OnSceneChange()
+    {
+        GetPlayer();
+        GetBoss();
     }
 }
