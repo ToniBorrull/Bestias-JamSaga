@@ -15,11 +15,12 @@ public class GameManager : MonoBehaviour
     public bool paused;
     public string scene1;
     public string scene2;
-    public Canvas pause;
+    public GameObject pause;
     public GameObject curtainLeft;
     public GameObject curtainRight;
     public bool open;
     public Light foco;
+    public bool done;
 
     private void Awake()
     {
@@ -38,18 +39,22 @@ public class GameManager : MonoBehaviour
     {
         paused = false;
         open = false;
+        done = false;
     }
 
     
     void Update()
     {
+        { 
+        /*
         if (Input.GetButtonDown("Pause"))
         {
-            //GetCanvas();
+            GetCanvas();
             paused = !paused;
             if (paused)
             {
-                pause.gameObject.SetActive(true);
+               if(!pause.activeInHierarchy)
+                    pause.SetActive(true);
                 Time.timeScale = 0;
                 if(boss1 != null)
                 {
@@ -61,37 +66,38 @@ public class GameManager : MonoBehaviour
                 }
             }else
             {
-                pause.gameObject.SetActive(false);
+                pause.SetActive(false);
                 Time.timeScale = 1;
-            }
-        }
-
-        //Get objects by scene
-        if(SceneManager.GetActiveScene().name == scene1)
-        {
-            GetBoss1();
-            boss2 = null;
-            GetPlayer();
-            GetLights();
-            //Esperar para abrir cortinas
-            GetCurtains();
-            OpenLights();
-            StartCoroutine(curtainsTrigger());
-        }
-        if(SceneManager.GetActiveScene().name == scene2)
-        {
-            GetBoss2();
-            boss1 = null;
-            GetPlayer();
-            GetCurtains();
-            StartCoroutine(curtainsTrigger());
-        }
-
-        if(curtainRight != null && curtainLeft != null)
-        {
-            OpenCurtains();
-        }
+            }*/
         
+
+            //Get objects by scene
+            if(SceneManager.GetActiveScene().name == scene1)
+            {
+                GetBoss1();
+                boss2 = null;
+                GetPlayer();
+                GetLights();
+                //Esperar para abrir cortinas
+                GetCurtains();
+                OpenLights();
+                StartCoroutine(curtainsTrigger());
+            }
+            if(SceneManager.GetActiveScene().name == scene2)
+            {
+                GetBoss2();
+                boss1 = null;
+                GetPlayer();
+                GetCurtains();
+                StartCoroutine(curtainsTrigger());
+            }
+
+            if(curtainRight != null && curtainLeft != null)
+            {
+                OpenCurtains();
+            }
+        
+        }
     }
     public Player GetPlayer()
     {
@@ -119,7 +125,7 @@ public class GameManager : MonoBehaviour
     }
     void GetCanvas()
     {
-        pause = GameObject.FindGameObjectWithTag("PauseCanvas").GetComponent<Canvas>();
+        pause = GameObject.FindGameObjectWithTag("PauseCanvas");
     }
 
     void GetCurtains()
@@ -135,9 +141,9 @@ public class GameManager : MonoBehaviour
     }
     void OpenLights()
     {
-        if (foco.spotAngle < 60f)
+        if (foco.spotAngle <= 60f)
         {
-            foco.spotAngle += 1.0f * Time.deltaTime;
+            foco.spotAngle += 1.0f;
         }
     }
     void OpenCurtains()
@@ -174,7 +180,11 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator curtainsTrigger()
     {
-        yield return new WaitForSeconds(2f);
-        open = true;
+        if (!done)
+        {
+            yield return new WaitForSeconds(2f);
+            open = true;
+            done = true;
+        }
     }
 }
