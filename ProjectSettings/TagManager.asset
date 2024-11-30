@@ -8,6 +8,9 @@ TagManager:
   - PauseCanvas
   - RightCurtain
   - LeftCurtain
+  - Foco
+  - StartCanvas
+  - MenuCanvas
   layers:
   - Default
   - TransparentFX
