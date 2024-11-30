@@ -71,8 +71,8 @@ public class Boss2 : Enemy
     {
         //mucho pincho
         ResetAttackTime(spikeDelay);
-        for (int i = 0;i<180;i+=30) {
-            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i));
+        for (int i = 0; i <= 180; i += 30) {
+            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i-90));
             _.GetComponent<Rigidbody>().AddForce(_.transform.up * spikeForce);
             Destroy(_, 3);
         }
