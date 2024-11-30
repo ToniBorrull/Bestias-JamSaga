@@ -9,9 +9,14 @@ public class Player : MonoBehaviour
     public bool isDead;
     public int defeatedBosses;
     private Collider playerColision;
+    public GameObject[] hearts;
+    public Movement playerMovement;
+    public Rigidbody rb;
+    
     void Start()
     {
         playerColision = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
         defeatedBosses = GameManager.instance.defeatedEnemies;
         isDead = false;
         if (defeatedBosses > 1)
@@ -27,22 +32,27 @@ public class Player : MonoBehaviour
     void Update()
     {
         health = health <= 0 ? 0 : health;
-        if (health < 0) Die();
     }
 
     private void Die()
     {
-        if (!isDead)
-        {
-            //animacion muerte
-            isDead = true;
-        }
+            playerMovement.enabled = false;
+            rb.useGravity = true;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.AddTorque(new Vector3(5, 3, 2), ForceMode.Impulse);
     }
 
     public void TakeDamage(int dmg)
     {
         health -= dmg;
         StartCoroutine(Invencibilidad());
+        if(health > 0)
+            UpdateHearts();
+        else
+        {
+            UpdateHearts();
+            Die();
+        }
     }
 
     private IEnumerator Invencibilidad()
@@ -50,6 +60,11 @@ public class Player : MonoBehaviour
         playerColision.enabled = false;
         yield return null;
         playerColision.enabled = true;
+    }
+    void UpdateHearts()
+    {
+        hearts[health].GetComponent<Rigidbody>().useGravity = true;
+        Destroy(hearts[health], 1f);
     }
 
 }

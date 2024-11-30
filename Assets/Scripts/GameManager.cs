@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
-            GetCanvas();
+            //GetCanvas();
             paused = !paused;
             if (paused)
             {
