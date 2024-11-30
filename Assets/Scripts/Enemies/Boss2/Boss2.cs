@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class Boss2 : Enemy
     public float persecutionTime;
     private float chosenAttack;
     private bool attacking = false;
+    private bool isActive = false;
 
 
     public GameObject spike;
@@ -46,7 +48,6 @@ public class Boss2 : Enemy
     // Update is called once per frame
     protected override void Update()
     {
-        Debug.Log(lastAttack);
         if (Time.time > lastAttack + atkRate)
         {
             ChooseAttack();
@@ -80,7 +81,7 @@ public class Boss2 : Enemy
     {
         chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
         attacking = false;
-        switch(chosenAttack)
+        switch (chosenAttack)
         {
                 case 0:
                 ResetAttackTime(tailDelay);
@@ -89,10 +90,13 @@ public class Boss2 : Enemy
                 ResetAttackTime(spikeDelay);
                 break;
                 case 2:
+                firstPhase = true;
+                secondPhase = true;
                 ResetAttackTime(persecutionTime);
                 break;
         }
-        
+        is_Persecution_active = false;
+
     }
 
     void Attack1()
@@ -114,7 +118,7 @@ public class Boss2 : Enemy
             {
                 firstPhase = false;
                 //animacion pegar
-                animator.SetTrigger("Tail");
+                StartCoroutine(Tail());
                 secondPhase = false;
             }
 
@@ -128,12 +132,21 @@ public class Boss2 : Enemy
                 {
                     firstPhase = true;
                     secondPhase = true;
+                    gotPosition = false;
+
                 }
             }
 
 
 
         }
+    }
+
+    IEnumerator Tail()
+    {
+        animator.SetBool("Tail", true);
+        yield return new WaitForSeconds(.25f);
+        animator.SetBool("Tail", false);
     }
 
     void Attack2()
@@ -142,82 +155,123 @@ public class Boss2 : Enemy
             return;
         //mucho pincho
 
-        animator.SetTrigger("Spikes");
-        for (int i = 0; i <= 180; i += 30) {
-            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i-90));
+        
+        
+
+        attacking = true;
+        StartCoroutine(HandleSpikesAttack());
+    }
+
+    IEnumerator HandleSpikesAttack()
+    {
+        animator.SetBool("Spikes", true);
+
+        yield return new WaitForSeconds(0.25f);
+
+        SpawnSpikes();
+
+        animator.SetBool("Spikes", false);
+
+        yield return new WaitForSeconds(1f); 
+
+        attacking = false;
+    }
+
+    void SpawnSpikes()
+    {
+        for (int i = 0; i <= 180; i += 30)
+        {
+            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i - 90));
             _.GetComponent<Rigidbody>().AddForce(_.transform.up * spikeForce);
             Destroy(_, 3);
         }
-
-        attacking = true;
-
     }
 
     void Attack3()
     {
-
-        //persecucion
         if (!attackCharged)
         {
-            StartCoroutine(Persecution(persecutionTime));
-        }
-        
-        if (attackCharged)
-        {
-            if (firstPhase)
-            {
-                if (transform.position.x > minX)
-                {
-                    transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
-                }
-                else
-                {
-                    firstPhase = false;
-                }
-            }
-            else if (secondPhase)
-            {
-                firstPhase = false;
-                if (transform.position.x < maxX)
-                {
-                    transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
-                }
-                else { secondPhase = false; }
-            }
-            else
-            {
-                secondPhase = false;
-                StartCoroutine(Persecution(persecutionTime));
-            }
 
+            StartCoroutine(PersecutionActive(persecutionTime));
+            return;
+        }
+
+        if (firstPhase)
+        {
+            transform.position += -transform.right * speed * Time.deltaTime;
+
+            if (transform.position.x <= minX)
+            {
+                firstPhase = false; 
+            }
+        }
+        else if (secondPhase)
+        {
+            transform.position += transform.right * speed * Time.deltaTime;
+
+            if (transform.position.x >= maxX)
+            {
+                secondPhase = false; 
+            }
+        }
+        else
+        {
+            if (!secondPhase && !firstPhase && is_Persecution_active && attackCharged)
+            {
+
+                StartCoroutine(PersecutionDisable(persecutionTime));
+            }
         }
     }
+
+    bool is_Persecution_active = false;
+    IEnumerator PersecutionActive(float waitTime)
+    {
+        if (isActive) yield break;
+        if (is_Persecution_active) yield break;
+        is_Persecution_active = true;
+        isActive = true;
+
+
+        //Debug.Log("PersecutionActive");
+
+        yield return new WaitForSeconds(waitTime * 0.25f);
+
+        animator.SetBool("Stampede", true);
+        attackCharged = true;
+        isActive = false;
+
+       
+    }
+
+    IEnumerator PersecutionDisable(float waitTime)
+    {
+        if (isActive) yield break;
+        if (!is_Persecution_active) yield break;
+        //Debug.Log("PersecutionDisable");
+        isActive = true;
+
+        yield return new WaitForSeconds(waitTime * 0.25f);
+        if (!secondPhase && !firstPhase)
+        {
+            animator.SetBool("Stampede", false);
+            ResetAttackPhases();
+        }
+
+        isActive = false;
+    }
+
+    void ResetAttackPhases()
+    {
+        secondPhase = true;
+        firstPhase = true;
+        attackCharged = false;
+    }
+
 
     void ResetAttackTime(float waitTime)
     {
         lastAttack = Time.time + waitTime;
-    }
-    
-    IEnumerator Persecution(float waitTime)
-    {
-
-        
-        yield return new WaitForSeconds(waitTime*0.5f);
-        if (!attackCharged)
-        {
-            animator.SetBool("Stampede", true);
-            attackCharged = true;
-            
-
-        }
-        else if (!secondPhase && !firstPhase)
-        {
-            animator.SetBool("Stampede", false);
-            secondPhase = true;
-            firstPhase = true;
-            attackCharged = false;
-            
-        }
 
     }
 

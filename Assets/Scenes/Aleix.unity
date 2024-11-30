@@ -250,12 +250,12 @@ MonoBehaviour:
   speed: 10
   minX: -9
   maxX: 9
-  persecutionTime: 3
+  persecutionTime: 4
   spike: {fileID: 325970760236530311, guid: dfa8450cc0e42af4b9c5a1a9f58f0841, type: 3}
   spikeForce: 100
-  spikeDelay: 2
+  spikeDelay: 1.3
   attackSpeed: 1
-  tailDelay: 2
+  tailDelay: 4
 --- !u!212 &1039414082
 SpriteRenderer:
   m_ObjectHideFlags: 0

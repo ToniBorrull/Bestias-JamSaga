@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     private IEnumerator Invencibilidad()
     {
         playerColision.enabled = false;
-        yield return null;
+        yield return new WaitForSeconds(2);
         playerColision.enabled = true;
     }
     void UpdateHearts()
