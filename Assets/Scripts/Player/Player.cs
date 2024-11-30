@@ -39,7 +39,8 @@ public class Player : MonoBehaviour
             playerMovement.enabled = false;
             rb.useGravity = true;
             rb.constraints = RigidbodyConstraints.None;
-            rb.AddTorque(new Vector3(5, 3, 2), ForceMode.Impulse);
+            Vector3 randomTorque = new Vector3(Random.Range(1, 5), Random.Range(2, 3), Random.Range(1, 2));
+            rb.AddTorque(randomTorque, ForceMode.Impulse);
     }
 
     public void TakeDamage(int dmg)
@@ -63,8 +64,14 @@ public class Player : MonoBehaviour
     }
     void UpdateHearts()
     {
-        hearts[health].GetComponent<Rigidbody>().useGravity = true;
-        Destroy(hearts[health], 1f);
+        if (!isDead)
+        {
+            hearts[health].GetComponent<Rigidbody>().useGravity = true;
+            Rigidbody heartsRb = hearts[health].GetComponent<Rigidbody>();
+            Vector3 randomTorque = new Vector3(0, Random.Range(1, 3), 0);
+            heartsRb.AddTorque(randomTorque, ForceMode.Impulse);
+            Destroy(hearts[health], 1f);
+        }
     }
 
 }
