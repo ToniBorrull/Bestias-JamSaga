@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public string scene1;
     public string scene2;
     public Canvas pause;
+    public GameObject curtainLeft;
+    public GameObject curtainRight;
+    public bool open;
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         paused = false;
+        open = false;
     }
 
     
@@ -67,15 +71,24 @@ public class GameManager : MonoBehaviour
             GetBoss1();
             boss2 = null;
             GetPlayer();
-            boss1.isFighting = true;
+            //Esperar para abrir cortinas
+            GetCurtains();
+            StartCoroutine(curtainsTrigger());
         }
         if(SceneManager.GetActiveScene().name == scene2)
         {
             GetBoss2();
             boss1 = null;
             GetPlayer();
-            boss2.isFighting = true;
+            GetCurtains();
+            StartCoroutine(curtainsTrigger());
         }
+
+        if(curtainRight != null && curtainLeft != null)
+        {
+            OpenCurtains();
+        }
+        
     }
     public Player GetPlayer()
     {
@@ -106,7 +119,33 @@ public class GameManager : MonoBehaviour
         pause = GameObject.FindGameObjectWithTag("PauseCanvas").GetComponent<Canvas>();
     }
 
+    void GetCurtains()
+    {
+        curtainLeft = GameObject.FindGameObjectWithTag("LeftCurtain");
+        curtainRight = GameObject.FindGameObjectWithTag("RightCurtain");
+    }
 
+    void OpenCurtains()
+    {
+        if (open)
+        {
+            curtainLeft.transform.localScale -= new Vector3(0.3f, 0, 0) * Time.deltaTime;
+            curtainRight.transform.localScale -= new Vector3(0.3f, 0, 0) * Time.deltaTime;
+            
+            if(curtainRight.transform.localScale.x <= 0)
+            {
+                if(boss1 != null)
+            {
+                boss1.isFighting = true;
+            }
+            if(boss2 != null)
+            {
+                boss2.isFighting = true;
+            }
+                open = false;
+            }
+        }
+    }
 
     //SCENE Manager
     public void Exit()
@@ -117,5 +156,10 @@ public class GameManager : MonoBehaviour
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+    }
+    IEnumerator curtainsTrigger()
+    {
+        yield return new WaitForSeconds(2f);
+        open = true;
     }
 }

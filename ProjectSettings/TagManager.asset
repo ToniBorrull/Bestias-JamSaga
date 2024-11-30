@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlayerAttack
   - PauseCanvas
+  - RightCurtain
+  - LeftCurtain
   layers:
   - Default
   - TransparentFX

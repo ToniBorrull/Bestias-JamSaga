@@ -25,7 +25,7 @@ public class Boss1 : Enemy
     protected override void Start()
     {
         isFighting = GameManager.instance.fightOn;
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         atkRate = initialAtkRate;
     }
 
@@ -77,7 +77,8 @@ public class Boss1 : Enemy
     {
         ResetAttackTime(waitTime);
         PlayAnimation("HighPos");
-        Instantiate(projectile, AttackSlotHigh.position, transform.rotation);   
+        Instantiate(projectile, AttackSlotHigh.position, transform.rotation);
+        PlayAnimation("Shoot");
     }
    
 
@@ -86,7 +87,7 @@ public class Boss1 : Enemy
         ResetAttackTime(waitTime);
         PlayAnimation("LowPos");
         Instantiate(projectile, AttackSlotLow.position, transform.rotation);
-       
+        PlayAnimation("Shoot");
     }
     void Combo3(float waitTime) 
     {
@@ -97,12 +98,13 @@ public class Boss1 : Enemy
             AttackSlotMid.rotation = Quaternion.Euler(0, 0, i);
             Instantiate(projectile, AttackSlotMid.position, AttackSlotMid.rotation);
         }
+        PlayAnimation("Shoot");
     }  
     void PlayAnimation(string animation)
     {
         currentAnimation = animation;
         animator.SetBool(animation, true);
-        Invoke("ResetAnimation", 0.2f);
+        Invoke("ResetAnimation", 0.1f);
     }
     void ResetAnimation()
     {

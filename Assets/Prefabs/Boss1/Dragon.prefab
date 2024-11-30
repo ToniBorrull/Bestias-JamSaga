@@ -97,7 +97,7 @@ Transform:
   - {fileID: 4531802061303643989}
   - {fileID: 5826350915403497993}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &442294745605071210
 SpriteRenderer:
