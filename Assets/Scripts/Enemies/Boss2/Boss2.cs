@@ -9,11 +9,18 @@ public class Boss2 : Enemy
     public int speed;
     public float minX;
     public float maxX;
+
     public GameObject spike;
     public int spikeForce;
     public float spikeDelay;
+
     private bool firstPhase = true;
     private bool secondPhase = true;
+
+    private bool gotPosition = false;
+    private Vector3 playerPos = Vector3.zero;
+
+    private Player player;
     private Animator animator;
     private float timer;
     private float lastAttack = 0f;
@@ -22,6 +29,7 @@ public class Boss2 : Enemy
 
     protected override void Start()
     {
+        player = GameManager.instance.player;
         animator = GetComponent<Animator>();
     }
 
@@ -46,10 +54,10 @@ public class Boss2 : Enemy
         //switch (chosenAttack)
         //{
         //    case 0:
-        //        Attack1();
+                Attack1();
         //        break;
         //    case 1:
-                Attack2();
+        //      Attack2();
         //        break;
         //    case 2:
         //        Attack3();
@@ -64,7 +72,19 @@ public class Boss2 : Enemy
     void Attack1()
     {
         //coletazo
+        if (!gotPosition)
+        {
+            playerPos = player.transform.position;
+            gotPosition = true;
+        }
+        else
+        {
 
+            transform.position = Vector3.Lerp(transform.position, playerPos, 1);
+
+
+
+        }
     }
 
     void Attack2()
