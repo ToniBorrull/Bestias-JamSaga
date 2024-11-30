@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
         if(SceneManager.GetActiveScene().name == scene2)
         {
-            GetBoss1();
+            GetBoss2();
             boss1 = null;
             GetPlayer();
             boss2.isFighting = true;

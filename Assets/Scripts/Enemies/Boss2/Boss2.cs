@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Boss2 : Enemy
 {
-    public bool isFighting;
+    public bool isFighting = false;
     public int speed;
     public float minX;
     public float maxX;
