@@ -118,7 +118,7 @@ Transform:
   m_Children:
   - {fileID: 3892339677958532176}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &8891379225658559550
 CapsuleCollider:
@@ -203,6 +203,9 @@ MonoBehaviour:
   maxHealth: 0
   isDead: 0
   defeatedBosses: 5
+  hearts: []
+  playerMovement: {fileID: 1774415511188098623}
+  rb: {fileID: 0}
 --- !u!114 &6741839431177611184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,5 +224,6 @@ MonoBehaviour:
   distanceFromPlayer: 0
   firstAttack: {fileID: 0}
   secondAttack: {fileID: 0}
-  thirdAttack: {fileID: 0}
-  fourthAttack: {fileID: 0}
+  fireballForce: 0
+  cooldownAttack1: 0
+  cooldownAttack2: 0

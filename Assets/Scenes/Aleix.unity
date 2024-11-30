@@ -158,8 +158,9 @@ MonoBehaviour:
   defeatedEnemies: 5
   fightOn: 0
   paused: 0
-  scene1: 
-  scene2: 
+  scene1: Toni
+  scene2: Aleix
+  pause: {fileID: 0}
 --- !u!4 &704891204
 Transform:
   m_ObjectHideFlags: 0
@@ -664,6 +665,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593945723078452363, guid: 574ede46a9c45f740823a49a3081f068,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

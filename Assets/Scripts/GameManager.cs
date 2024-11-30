@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
-            GetCanvas();
+            //GetCanvas();
             paused = !paused;
             if (paused)
             {
@@ -71,15 +71,19 @@ public class GameManager : MonoBehaviour
         }
         if(SceneManager.GetActiveScene().name == scene2)
         {
-            GetBoss1();
+            GetBoss2();
             boss1 = null;
             GetPlayer();
             boss2.isFighting = true;
         }
     }
-    void GetPlayer()
+    public Player GetPlayer()
     {
         player = FindObjectOfType<Player>();
+        if(player != null)
+            return player;
+
+        return null;
     }
     void GetBoss1()
     {

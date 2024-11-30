@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class Boss2 : Enemy
 {
-    public bool isFighting;
+    public bool isFighting = false;
     public int speed;
     public float minX;
     public float maxX;
     private float persecutionTime=2;
     private float chosenAttack;
-    private bool timeChanged =false;
+    private bool attacking = false;
+
 
     public GameObject spike;
     public int spikeForce;
@@ -38,14 +39,14 @@ public class Boss2 : Enemy
 
     protected override void Start()
     {
-        player = GameManager.instance.player;
+        player = GameManager.instance.GetPlayer();
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        timer += Time.deltaTime;
+        Debug.Log(lastAttack);
         if (Time.time > lastAttack + atkRate)
         {
             ChooseAttack();
@@ -77,16 +78,25 @@ public class Boss2 : Enemy
 
     void ChooseAttack()
     {
-         chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
-
-
+        chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
+        attacking = false;
+        switch(chosenAttack)
+        {
+                case 0:
+                ResetAttackTime(tailDelay);
+                break;
+                case 1:
+                ResetAttackTime(spikeDelay);
+                break;
+                case 2:
+                ResetAttackTime(persecutionTime);
+                break;
+        }
+        
     }
 
     void Attack1()
     {
-        if (Time.time > lastAttack + atkRate && timeChanged)
-            ResetAttackTime(tailDelay);
-
         //coletazo
         if (!gotPosition)
         {
@@ -118,7 +128,6 @@ public class Boss2 : Enemy
                 {
                     firstPhase = true;
                     secondPhase = true;
-                    timeChanged = false;
                 }
             }
 
@@ -129,9 +138,10 @@ public class Boss2 : Enemy
 
     void Attack2()
     {
+        if (attacking)
+            return;
         //mucho pincho
-        if (Time.time > lastAttack + atkRate && !timeChanged)
-            ResetAttackTime(spikeDelay);
+
 
         for (int i = 0; i <= 180; i += 30) {
             GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i-90));
@@ -139,14 +149,13 @@ public class Boss2 : Enemy
             Destroy(_, 3);
         }
 
-        timeChanged = false;
+        attacking = true;
 
     }
 
     void Attack3()
     {
-        if (Time.time > lastAttack + atkRate && timeChanged)
-            ResetAttackTime(persecutionTime);
+
         //persecucion
         if (!attackCharged)
         {
@@ -188,7 +197,7 @@ public class Boss2 : Enemy
     {
         lastAttack = Time.time + waitTime;
     }
-
+    
     IEnumerator Persecution(float waitTime)
     {
         //animación cargar rotación
@@ -204,9 +213,9 @@ public class Boss2 : Enemy
             secondPhase = true;
             firstPhase = true;
             attackCharged = false;
-            timeChanged = false;
 
         }
+
     }
 
 }
