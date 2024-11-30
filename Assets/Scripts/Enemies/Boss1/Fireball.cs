@@ -18,7 +18,6 @@ public class Fireball : MonoBehaviour
     {
         Vector3 dir = -transform.right;
         transform.position += dir * speed * Time.deltaTime;
-        Destroy(this.gameObject, 2f);
     }
     private void OnTriggerEnter(Collider other)
     {
