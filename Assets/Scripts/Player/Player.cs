@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         {
             hearts[health].GetComponent<Rigidbody>().useGravity = true;
             Rigidbody heartsRb = hearts[health].GetComponent<Rigidbody>();
-            Vector3 randomTorque = new Vector3(0, Random.Range(1, 3), 0);
+            Vector3 randomTorque = new Vector3(0, Random.Range(3, 10), 0);
             heartsRb.AddTorque(randomTorque, ForceMode.Impulse);
             Destroy(hearts[health], 1f);
         }
