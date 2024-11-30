@@ -35,7 +35,9 @@ public class Boss2 : Enemy
     private float timer;
     private float lastAttack = 0f;
     private bool attackCharged = false;
-
+    private bool stunned = false;
+    private float stunTimer = 0f;
+    public float stunTime;
     
     
 
@@ -50,7 +52,25 @@ public class Boss2 : Enemy
     {
         if (Time.time > lastAttack + atkRate)
         {
-            ChooseAttack();
+            if (stunned)
+            {
+                //stunAnim
+                if (stunTimer <= stunTime) {
+                    Debug.Log("Stunned");
+                    stunTimer += Time.deltaTime;
+                }
+                else
+                {
+                    stunned = false;
+                    stunTimer = 0f;
+                }
+            }
+            else
+            {
+                stunned = isStunned();
+                ChooseAttack();
+                AttackDone();
+            }
         }
         else
         {
@@ -198,8 +218,8 @@ public class Boss2 : Enemy
 
         if (firstPhase)
         {
-            transform.position += -transform.right * speed * Time.deltaTime;
-
+            transform.position += Vector3.left * speed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(-90,0,30);
             if (transform.position.x <= minX)
             {
                 firstPhase = false; 
@@ -207,11 +227,14 @@ public class Boss2 : Enemy
         }
         else if (secondPhase)
         {
-            transform.position += transform.right * speed * Time.deltaTime;
+            transform.position += Vector3.right * speed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(-90,0,-30);
 
             if (transform.position.x >= maxX)
             {
-                secondPhase = false; 
+                secondPhase = false;
+                transform.rotation = Quaternion.identity;
+
             }
         }
         else
