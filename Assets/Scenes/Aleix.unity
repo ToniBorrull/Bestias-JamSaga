@@ -6607,6 +6607,8 @@ MonoBehaviour:
   curtainLeft: {fileID: 0}
   curtainRight: {fileID: 0}
   open: 0
+  foco: {fileID: 0}
+  done: 0
 --- !u!4 &704891204
 Transform:
   m_ObjectHideFlags: 0
@@ -6893,7 +6895,7 @@ PrefabInstance:
     - target: {fileID: 742485380129022217, guid: 574ede46a9c45f740823a49a3081f068,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.83
       objectReference: {fileID: 0}
     - target: {fileID: 742485380129022217, guid: 574ede46a9c45f740823a49a3081f068,
         type: 3}
