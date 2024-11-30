@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public bool paused;
     public string scene1;
     public string scene2;
+    public Canvas pause;
 
     private void Awake()
     {
@@ -27,23 +29,22 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    // Start is called before the first frame update
+  
     void Start()
     {
         paused = false;
-        GetPlayer();
-        //GetBoss();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        //FightOn();
         if (Input.GetButtonDown("Pause"))
         {
+            GetCanvas();
             paused = !paused;
             if (paused)
             {
+                pause.gameObject.SetActive(true);
                 Time.timeScale = 0;
                 if(boss1 != null)
                 {
@@ -55,10 +56,12 @@ public class GameManager : MonoBehaviour
                 }
             }else
             {
+                pause.gameObject.SetActive(false);
                 Time.timeScale = 1;
             }
         }
 
+        //Get objects by scene
         if(SceneManager.GetActiveScene().name == scene1)
         {
             GetBoss1();
@@ -93,6 +96,10 @@ public class GameManager : MonoBehaviour
     void FightOff1()
     {
         boss1.DeactivateFight();
+    }
+    void GetCanvas()
+    {
+        pause = GameObject.FindGameObjectWithTag("PauseCanvas").GetComponent<Canvas>();
     }
 
 
