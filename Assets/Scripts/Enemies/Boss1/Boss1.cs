@@ -23,6 +23,7 @@ public class Boss1 : Enemy
     public float rateDecreaseInterval = 10f;
     public float rateDecreaseAmount = 0.2f;
     float rateTimer;
+    public Rigidbody rb;
 
 
     public float chillTime = 3;
@@ -75,7 +76,10 @@ public class Boss1 : Enemy
     }
     protected override void Die()
     {
-        Destroy(gameObject);
+        rb = GetComponent<Rigidbody>();
+        Vector3 randomTorque = new Vector3(0, UnityEngine.Random.Range(3, 10), 0);
+        rb.AddTorque(randomTorque, ForceMode.Impulse);
+        Destroy(gameObject, 1f);
     }
     void ChooseAttack()
     {

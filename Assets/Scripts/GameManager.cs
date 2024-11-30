@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public bool open;
     public Light foco;
     public bool done;
+    public bool gMDone;
+    public bool close;
 
     public UnityEngine.UI.Button Play;
     public UnityEngine.UI.Button Options;
@@ -43,73 +45,98 @@ public class GameManager : MonoBehaviour
   
     void Start()
     {
-        fightOn = true;
+        fightOn = false;
         paused = false;
         open = false;
         done = false;
+        close = false;
     }
 
     
     void Update()
     {
-        {
-            /*
-            if (Input.GetButtonDown("Pause"))
-            {
-                GetCanvas();
-                paused = !paused;
-                if (paused)
-                {
-                   if(!pause.activeInHierarchy)
-                        pause.SetActive(true);
-                    Time.timeScale = 0;
-                    if(boss1 != null)
-                    {
-                        boss1.isFighting = false;
-                    }
-                    if(boss2 != null)
-                    {
-                        boss2.isFighting = false;
-                    }
-                }else
-                {
-                    pause.SetActive(false);
-                    Time.timeScale = 1;
-                }*/
-
-
-            //Get objects by scene
-
-
-                if (SceneManager.GetActiveScene().name == scene1)
-            {
-                GetBoss1();
-                boss2 = null;
-                GetPlayer();
-                GetLights();
-                //Esperar para abrir cortinas
-                GetCurtains();
-                OpenLights();
-                StartCoroutine(curtainsTrigger());
-            }
-            if(SceneManager.GetActiveScene().name == scene2)
-            {
-                GetBoss2();
-                boss1 = null;
-                GetPlayer();
-                GetCurtains();
-                StartCoroutine(curtainsTrigger());
-            }
-
-            if(curtainRight != null && curtainLeft != null)
-            {
-                OpenCurtains();
-            }
         
+        /*
+        if (Input.GetButtonDown("Pause"))
+        {
+            GetCanvas();
+            paused = !paused;
+            if (paused)
+            {
+                if(!pause.activeInHierarchy)
+                    pause.SetActive(true);
+                Time.timeScale = 0;
+                if(boss1 != null)
+                {
+                    boss1.isFighting = false;
+                }
+                if(boss2 != null)
+                {
+                    boss2.isFighting = false;
+                }
+            }else
+            {
+                pause.SetActive(false);
+                Time.timeScale = 1;
+            }*/
+
+
+        //Get objects by scene
+
+        if (SceneManager.GetActiveScene().name == menuScene)
+        {
+            if (gMDone)
+            {
+                ResetVariables();
+                gMDone = false;
+            }
         }
+        if (SceneManager.GetActiveScene().name == scene1)
+        {
+            GetBoss1();
+            boss2 = null;
+            GetPlayer();
+            GetLights();
+            //Esperar para abrir cortinas
+            GetCurtains();
+            OpenLights();
+            StartCoroutine(curtainsTrigger());
+            gMDone = true;
+        }
+        if(SceneManager.GetActiveScene().name == scene2)
+        {
+            GetBoss2();
+            boss1 = null;
+            GetPlayer();
+            GetCurtains();
+            StartCoroutine(curtainsTrigger());
+            gMDone = true;
+        }
+
+        if (curtainRight != null && curtainLeft != null)
+        {
+            OpenCurtains();
+            CloseCurtains();
+                
+        }
+        if (boss1 != null)
+                {
+                    if (boss1.health <= 0)
+                    {
+                        close = true;
+                    }
+                }
+        
     }
 
-
+    void ResetVariables()
+    {
+        fightOn = false;
+        paused = false;
+        open = false;
+        done = false;
+        close = false; 
+    }
 
     public Player GetPlayer()
     {
@@ -176,6 +203,21 @@ public class GameManager : MonoBehaviour
                 boss2.isFighting = true;
             }
                 open = false;
+            }
+        }
+    }
+
+    void CloseCurtains()
+    {
+        if (close)
+        {
+            curtainLeft.transform.localScale += new Vector3(0.3f, 0, 0) * Time.deltaTime;
+            curtainRight.transform.localScale += new Vector3(0.3f, 0, 0) * Time.deltaTime;
+
+            if (curtainRight.transform.localScale.x >= 1)
+            {
+                close = false;
+                ChangeScene("Menu");
             }
         }
     }

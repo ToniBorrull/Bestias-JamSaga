@@ -680,13 +680,19 @@ MonoBehaviour:
   fightOn: 0
   paused: 0
   scene1: Toni
-  scene2: 
+  scene2: Aleix
+  menuScene: Menu
   pause: {fileID: 0}
   curtainLeft: {fileID: 0}
   curtainRight: {fileID: 0}
   open: 0
   foco: {fileID: 0}
   done: 0
+  gMDone: 0
+  close: 0
+  Play: {fileID: 0}
+  Options: {fileID: 0}
+  Exit: {fileID: 0}
 --- !u!1001 &284230966
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ TagManager:
   - RightCurtain
   - LeftCurtain
   - Foco
+  - returnNubol
   layers:
   - Default
   - TransparentFX

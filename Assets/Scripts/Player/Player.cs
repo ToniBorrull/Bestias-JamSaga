@@ -71,12 +71,12 @@ public class Player : MonoBehaviour
         playerColision.enabled = false;
         for(int yihad = 0; yihad < 10; yihad++)
         {
-            this.GetComponent<Renderer>().material.color = Color.red;
+            //this.GetComponent<Renderer>().material.color = Color.red;
 
             yield return new WaitForSeconds(.2f);
 
 
-            this.GetComponent<Renderer>().material.color = Color.white;
+            //this.GetComponent<Renderer>().material.color = Color.white;
         }
 
 
