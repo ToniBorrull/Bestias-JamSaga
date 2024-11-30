@@ -10,7 +10,7 @@ public class Boss2 : Enemy
     public int speed;
     public float minX;
     public float maxX;
-    private float persecutionTime=2;
+    public float persecutionTime;
     private float chosenAttack;
     private bool attacking = false;
 
@@ -205,16 +205,18 @@ public class Boss2 : Enemy
         yield return new WaitForSeconds(waitTime*0.5f);
         if (!attackCharged)
         {
-            attackCharged = true;
             animator.SetBool("Stampede", true);
+            attackCharged = true;
+            
 
         }
         else if (!secondPhase && !firstPhase)
         {
+            animator.SetBool("Stampede", false);
             secondPhase = true;
             firstPhase = true;
             attackCharged = false;
-            animator.SetBool("Stampede", false);
+            
         }
 
     }
