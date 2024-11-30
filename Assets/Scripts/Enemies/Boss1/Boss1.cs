@@ -31,19 +31,6 @@ public class Boss1 : Enemy
 
     protected override void Update()
     {
-        /*
-        if (isFighting)
-        {
-            fightTimer += Time.deltaTime;
-        }
-       
-        //
-        if (Time.time > lastAttack + atkRate)
-        {
-            atkRate -= Time.deltaTime * 0.2f;
-            ChooseAttack();
-        }*/
-
         if (isFighting)
         {
             fightTimer += Time.deltaTime;
@@ -57,7 +44,6 @@ public class Boss1 : Enemy
                 Debug.Log($"Nueva tasa de ataque: {atkRate}");
             }
 
-            // Ataque del jefe
             if (Time.time > lastAttack + atkRate)
             {
                 ChooseAttack();
