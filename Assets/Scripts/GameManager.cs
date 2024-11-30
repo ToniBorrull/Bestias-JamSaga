@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         paused = false;
-        //GetPlayer();
+        GetPlayer();
         //GetBoss();
     }
 

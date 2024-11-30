@@ -19,6 +19,9 @@ public class Boss2 : Enemy
 
     private bool gotPosition = false;
     private Vector3 playerPos = Vector3.zero;
+    public float attackSpeed;
+    public float tailDelay;
+    private Vector3 originalPosition = Vector3.zero;
 
     private Player player;
     private Animator animator;
@@ -75,12 +78,36 @@ public class Boss2 : Enemy
         if (!gotPosition)
         {
             playerPos = player.transform.position;
+            originalPosition = transform.position;
             gotPosition = true;
         }
         else
         {
+            if (Vector3.Distance(playerPos, transform.position) > 5 && firstPhase)
+            {
+                transform.position = Vector3.Lerp(transform.position, playerPos, attackSpeed * Time.deltaTime);
+            }
+            else if(secondPhase)
+            {
+                firstPhase = false;
+                //animacion pegar
+                
+                secondPhase = false;
+            }
 
-            transform.position = Vector3.Lerp(transform.position, playerPos, 1);
+            if (!firstPhase && !secondPhase)
+            {
+                if (Vector3.Distance(transform.position, originalPosition) > 0.1f)
+                {
+                    transform.position = Vector3.Lerp(transform.position, originalPosition, attackSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    firstPhase = true;
+                    secondPhase = true;
+                    ResetAttackTime(tailDelay);
+                }
+            }
 
 
 

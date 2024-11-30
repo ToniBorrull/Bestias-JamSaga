@@ -248,6 +248,8 @@ MonoBehaviour:
   spike: {fileID: 325970760236530311, guid: dfa8450cc0e42af4b9c5a1a9f58f0841, type: 3}
   spikeForce: 100
   spikeDelay: 0
+  attackSpeed: 1
+  tailDelay: 0
 --- !u!212 &1039414082
 SpriteRenderer:
   m_ObjectHideFlags: 0
