@@ -7,10 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
     public Player player;
-    public Boss1 boss;
+    public Boss1 boss1;
+    public Boss2 boss2;
     public int defeatedEnemies = 0;
     public bool fightOn;
     public bool paused;
+    public string scene1;
+    public string scene2;
 
     private void Awake()
     {
@@ -38,36 +41,58 @@ public class GameManager : MonoBehaviour
         //FightOn();
         if (Input.GetButtonDown("Pause"))
         {
-
             paused = !paused;
-            if(paused)
+            if (paused)
+            {
                 Time.timeScale = 0;
-            else
+                if(boss1 != null)
+                {
+                    boss1.isFighting = false;
+                }
+                if(boss2 != null)
+                {
+                    boss2.isFighting = false;
+                }
+            }else
             {
                 Time.timeScale = 1;
             }
+        }
+
+        if(SceneManager.GetActiveScene().name == scene1)
+        {
+            GetBoss1();
+            boss2 = null;
+            GetPlayer();
+            boss1.isFighting = true;
+        }
+        if(SceneManager.GetActiveScene().name == scene2)
+        {
+            GetBoss1();
+            boss1 = null;
+            GetPlayer();
+            boss2.isFighting = true;
         }
     }
     void GetPlayer()
     {
         player = FindObjectOfType<Player>();
     }
-    void GetBoss()
+    void GetBoss1()
     {
-        boss = FindObjectOfType<Boss1>();
+        boss1 = FindObjectOfType<Boss1>();
     }
-    void FightOn()
+    void GetBoss2()
     {
-        boss.ActivateFight();
+        boss2 = FindObjectOfType<Boss2>();
     }
-    void FightOff()
+    void FightOn1()
     {
-        boss.DeactivateFight();
+        boss1.ActivateFight();
     }
-    public void OnSceneChange()
+    void FightOff1()
     {
-        GetPlayer();
-        GetBoss();
+        boss1.DeactivateFight();
     }
 
 
