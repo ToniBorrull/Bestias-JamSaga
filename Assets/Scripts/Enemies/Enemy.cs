@@ -7,6 +7,7 @@ public abstract class Enemy : MonoBehaviour
     public float health;
     public float atkRate;
     public bool isAttacking;
+    public int attacksDone;
     protected abstract void Start();
 
     protected abstract void Update();
@@ -18,4 +19,21 @@ public abstract class Enemy : MonoBehaviour
         if (health < 0) Die();
     }
     protected abstract void Die();
+
+    protected void AttackDone()
+    {
+        attacksDone++;
+    }
+
+    protected bool isStunned()
+    {
+        isAttacking = attacksDone == 5 ? false : true;
+        if (isAttacking )
+        {
+            attacksDone = 0;
+
+        }
+        return isAttacking;
+    }
+
 }

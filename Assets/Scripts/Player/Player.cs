@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -41,6 +42,16 @@ public class Player : MonoBehaviour
             rb.constraints = RigidbodyConstraints.None;
             Vector3 randomTorque = new Vector3(Random.Range(1, 5), Random.Range(2, 3), Random.Range(1, 2));
             rb.AddTorque(randomTorque, ForceMode.Impulse);
+            rb.isKinematic = true;
+        StartCoroutine(ReturnMenu());
+        
+            
+    }
+
+    IEnumerator ReturnMenu()
+    {
+        yield return new WaitForSeconds(1);
+        GameManager.instance.ChangeScene("Menu");
     }
 
     public void TakeDamage(int dmg)

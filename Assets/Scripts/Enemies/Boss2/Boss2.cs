@@ -35,7 +35,10 @@ public class Boss2 : Enemy
     private float timer;
     private float lastAttack = 0f;
     private bool attackCharged = false;
-
+    private bool stunned = false;
+    private float stunTimer = 0f;
+    public float stunTime;
+    public float rotationSpeed;
     
     
 
@@ -43,6 +46,7 @@ public class Boss2 : Enemy
     {
         player = GameManager.instance.GetPlayer();
         animator = GetComponent<Animator>();
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -50,7 +54,30 @@ public class Boss2 : Enemy
     {
         if (Time.time > lastAttack + atkRate)
         {
-            ChooseAttack();
+            if (stunned)
+            {
+                //stunAnim
+                if(Vector3.Distance(transform.position,originalPosition)>2)
+                {
+                    transform.position = Vector3.Lerp(transform.position, originalPosition, attackSpeed * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, rotationSpeed * Time.deltaTime);
+                }
+                else if (stunTimer <= stunTime) {
+                    Debug.Log("Stunned");
+                    stunTimer += Time.deltaTime;
+                }
+                else
+                {
+                    stunned = false;
+                    stunTimer = 0f;
+                }
+            }
+            else
+            {
+                stunned = isStunned();
+                ChooseAttack();
+                AttackDone();
+            }
         }
         else
         {
@@ -81,6 +108,7 @@ public class Boss2 : Enemy
     {
         chosenAttack = Mathf.Floor(UnityEngine.Random.Range(0, 3));
         attacking = false;
+        transform.rotation = Quaternion.identity;
         switch (chosenAttack)
         {
                 case 0:
@@ -105,7 +133,6 @@ public class Boss2 : Enemy
         if (!gotPosition)
         {
             playerPos = player.transform.position;
-            originalPosition = transform.position;
             gotPosition = true;
         }
         else
@@ -113,6 +140,9 @@ public class Boss2 : Enemy
             if (Vector3.Distance(playerPos, transform.position) > 5 && firstPhase)
             {
                 transform.position = Vector3.Lerp(transform.position, playerPos, attackSpeed * Time.deltaTime);
+                
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 30), rotationSpeed*Time.deltaTime); ;
+
             }
             else if(secondPhase)
             {
@@ -124,8 +154,10 @@ public class Boss2 : Enemy
 
             if (!firstPhase && !secondPhase)
             {
-                if (Vector3.Distance(transform.position, originalPosition) > 0.1f)
+                if (Vector3.Distance(transform.position, originalPosition) > 1f)
                 {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -30), rotationSpeed*Time.deltaTime); ;
+
                     transform.position = Vector3.Lerp(transform.position, originalPosition, attackSpeed * Time.deltaTime);
                 }
                 else
@@ -133,6 +165,7 @@ public class Boss2 : Enemy
                     firstPhase = true;
                     secondPhase = true;
                     gotPosition = false;
+                    transform.rotation = Quaternion.identity;
 
                 }
             }
@@ -181,7 +214,7 @@ public class Boss2 : Enemy
     {
         for (int i = 0; i <= 180; i += 30)
         {
-            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i - 90));
+            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i));
             _.GetComponent<Rigidbody>().AddForce(_.transform.up * spikeForce);
             Destroy(_, 3);
         }
@@ -198,8 +231,7 @@ public class Boss2 : Enemy
 
         if (firstPhase)
         {
-            transform.position += -transform.right * speed * Time.deltaTime;
-
+            transform.position += Vector3.left * speed * Time.deltaTime;
             if (transform.position.x <= minX)
             {
                 firstPhase = false; 
@@ -207,11 +239,12 @@ public class Boss2 : Enemy
         }
         else if (secondPhase)
         {
-            transform.position += transform.right * speed * Time.deltaTime;
+            transform.position += Vector3.right * speed * Time.deltaTime;
 
             if (transform.position.x >= maxX)
             {
-                secondPhase = false; 
+                secondPhase = false;
+
             }
         }
         else
