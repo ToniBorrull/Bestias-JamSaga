@@ -46,6 +46,7 @@ public class Boss2 : Enemy
     {
         player = GameManager.instance.GetPlayer();
         animator = GetComponent<Animator>();
+        originalPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -56,7 +57,12 @@ public class Boss2 : Enemy
             if (stunned)
             {
                 //stunAnim
-                if (stunTimer <= stunTime) {
+                if(Vector3.Distance(transform.position,originalPosition)>2)
+                {
+                    transform.position = Vector3.Lerp(transform.position, originalPosition, attackSpeed * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, rotationSpeed * Time.deltaTime);
+                }
+                else if (stunTimer <= stunTime) {
                     Debug.Log("Stunned");
                     stunTimer += Time.deltaTime;
                 }
@@ -127,7 +133,6 @@ public class Boss2 : Enemy
         if (!gotPosition)
         {
             playerPos = player.transform.position;
-            originalPosition = transform.position;
             gotPosition = true;
         }
         else
@@ -209,7 +214,7 @@ public class Boss2 : Enemy
     {
         for (int i = 0; i <= 180; i += 30)
         {
-            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i - 90));
+            GameObject _ = Instantiate(spike, transform.position, Quaternion.Euler(0, 0, i));
             _.GetComponent<Rigidbody>().AddForce(_.transform.up * spikeForce);
             Destroy(_, 3);
         }
