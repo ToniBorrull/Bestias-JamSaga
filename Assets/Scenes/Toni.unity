@@ -12832,6 +12832,11 @@ PrefabInstance:
       objectReference: {fileID: 384973291}
     - target: {fileID: 8320315213612980694, guid: 82fdb1737cf08f941ad1900dfb3d170f,
         type: 3}
+      propertyPath: fireballSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 52f4539ff1384cf43ab9e16179901f18, type: 3}
+    - target: {fileID: 8320315213612980694, guid: 82fdb1737cf08f941ad1900dfb3d170f,
+        type: 3}
       propertyPath: hearts.Array.size
       value: 3
       objectReference: {fileID: 0}

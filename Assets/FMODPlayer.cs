@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FMODPlayer : MonoBehaviour
 {
@@ -13,9 +14,9 @@ public class FMODPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      if(Input.GetKeyDown("a"))
+      if(GameManager.instance.scene1 == SceneManager.GetActiveScene().name)
         {
-         FMODUnity.RuntimeManager.PlayOneShot("event:/Test", GetComponent<Transform>().position);
+         FMODUnity.RuntimeManager.PlayOneShot("event:/AmbientSound_2", GetComponent<Transform>().position);
         }  
     }
 

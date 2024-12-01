@@ -27,7 +27,7 @@ public class Boss1 : Enemy
     public GameObject estrellitas;
 
     public GameObject[] hearts;
-
+    public AudioClip fireballSound;
 
     public float chillTime = 3;
     private float chillTimer = 0;
@@ -159,6 +159,8 @@ public class Boss1 : Enemy
         else
         {
             animator.SetTrigger("Shoot");
+            SoundManager.instance.PlaySFXClip(fireballSound, transform, 1f);
+            Debug.Log("HaSonado");
         }
     }
 
