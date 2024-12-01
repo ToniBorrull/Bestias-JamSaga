@@ -24,6 +24,7 @@ public class Boss1 : Enemy
     public float rateDecreaseAmount = 0.2f;
     float rateTimer;
     public Rigidbody rb;
+    public GameObject estrellitas;
 
     public GameObject[] hearts;
 
@@ -75,6 +76,7 @@ public class Boss1 : Enemy
                 chillTimer = 0;
             }
         }
+        estrellitas.SetActive(!isFighting);
     }
     protected override void Die()
     {
