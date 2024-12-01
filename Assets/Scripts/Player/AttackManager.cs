@@ -116,6 +116,7 @@ public class AttackManager : MonoBehaviour
             {
                 en.TakeDamage(1);
                 Knockback();
+                en.UpdateHearts();
             }
             else
             {

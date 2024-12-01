@@ -25,6 +25,8 @@ public class Boss1 : Enemy
     float rateTimer;
     public Rigidbody rb;
 
+    public GameObject[] hearts;
+
 
     public float chillTime = 3;
     private float chillTimer = 0;
@@ -170,6 +172,7 @@ public class Boss1 : Enemy
             Destroy(other.gameObject);
             Debug.Log("Attack");
         }
+        
     }
     public void ActivateFight() 
     {
@@ -179,5 +182,14 @@ public class Boss1 : Enemy
     {
         isFighting = false;
     }
+    public void UpdateHearts()
+    {
+            hearts[(int)health].GetComponent<Rigidbody>().useGravity = true;
+            Rigidbody heartsRb = hearts[(int)health].GetComponent<Rigidbody>();
+            Vector3 randomTorque = new Vector3(0, UnityEngine.Random.Range(3, 10), 0);
+            heartsRb.AddTorque(randomTorque, ForceMode.Impulse);
+            Destroy(hearts[(int)health], 2f);
+    }
+
 
 }
