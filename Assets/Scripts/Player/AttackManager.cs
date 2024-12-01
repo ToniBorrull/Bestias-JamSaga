@@ -7,7 +7,7 @@ public class AttackManager : MonoBehaviour
     public LayerMask mask;
     public float distanceFromPlayer;
     private Rigidbody rb;
-    private float knockbackForce = 10;
+    private float knockbackForce = 7f;
     [Header("Ataques")]
     public GameObject firstAttack;
     public GameObject secondAttack;
@@ -25,6 +25,10 @@ public class AttackManager : MonoBehaviour
     private int defeatedBosses;
     private Vector3 target;
     public bool knockbacking = false;
+
+
+    private float knockbackTimer = 0;
+    private float timerKnockback = 1;
     
 
     void Start()
@@ -38,13 +42,14 @@ public class AttackManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (knockbacking)
+        if (knockbacking && knockbackTimer < timerKnockback)
         {
             transform.position = Vector3.Lerp(transform.position, target, knockbackForce*Time.deltaTime);
-            if (Vector3.Distance(transform.position, target) <= 2)
+            if (Vector3.Distance(transform.position, target) <= .2f)
             {
                 knockbacking = false;
             }
+            knockbackTimer += Time.deltaTime;
         }
         if (cooldownTimer2 >= cooldownAttack2)
         {
@@ -115,8 +120,9 @@ public class AttackManager : MonoBehaviour
             if (!en.isFighting)
             {
                 en.TakeDamage(1);
-                Knockback();
                 en.UpdateHearts();
+                Knockback();
+                
             }
             else
             {
@@ -128,16 +134,21 @@ public class AttackManager : MonoBehaviour
         }
         if (other.gameObject.TryGetComponent(out Boss2 en2))
         {
-            if (!en2.isAttacking)
+            if (en2.stunned)
             {
                 en2.TakeDamage(1);
+                en2.UpdateHearts();
                 Knockback();
             }
             else
             {
                 player.TakeDamage(1);
-                Knockback();
             }
+        }
+        else if (other.CompareTag("BossAttack"))
+        {
+            player.TakeDamage(1);
+            Destroy(other.gameObject);
         }
     }
 
@@ -145,6 +156,8 @@ public class AttackManager : MonoBehaviour
     {
         knockbacking = true;
         target = new Vector3(transform.position.x-3,transform.position.y,transform.position.z);
+        knockbackTimer = 0;
+
     }
 
 }

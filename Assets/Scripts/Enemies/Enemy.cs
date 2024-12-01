@@ -29,7 +29,7 @@ public abstract class Enemy : MonoBehaviour
     protected bool isStunned()
     {
         isAttacking = attacksDone == 5 ? false : true;
-        if (isAttacking )
+        if (!isAttacking)
         {
             attacksDone = 0;
 

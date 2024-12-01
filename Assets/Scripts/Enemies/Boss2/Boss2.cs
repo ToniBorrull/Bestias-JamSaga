@@ -35,10 +35,14 @@ public class Boss2 : Enemy
     private float timer;
     private float lastAttack = 0f;
     private bool attackCharged = false;
-    private bool stunned = false;
+    public bool stunned = false;
     private float stunTimer = 0f;
     public float stunTime;
     public float rotationSpeed;
+
+    public GameObject stars;
+    public GameObject[] hearts;
+    private Rigidbody rb;
     
     
 
@@ -57,24 +61,27 @@ public class Boss2 : Enemy
             if (stunned)
             {
                 //stunAnim
-                if(Vector3.Distance(transform.position,originalPosition)>2)
+                if(Vector3.Distance(transform.position,originalPosition)>.2f)
                 {
                     transform.position = Vector3.Lerp(transform.position, originalPosition, attackSpeed * Time.deltaTime);
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, rotationSpeed * Time.deltaTime);
                 }
                 else if (stunTimer <= stunTime) {
+                    stars.SetActive(true);
                     Debug.Log("Stunned");
                     stunTimer += Time.deltaTime;
                 }
                 else
                 {
+                    stars.SetActive(false);
+                    attacksDone = 0;
                     stunned = false;
                     stunTimer = 0f;
                 }
             }
             else
             {
-                stunned = isStunned();
+                stunned = !isStunned();
                 ChooseAttack();
                 AttackDone();
             }
@@ -101,7 +108,11 @@ public class Boss2 : Enemy
 
     protected override void Die()
     {
-
+        rb = GetComponent<Rigidbody>();
+        Vector3 randomTorque = new Vector3(UnityEngine.Random.Range(2, 5), UnityEngine.Random.Range(3, 10), UnityEngine.Random.Range(2, 3));
+        rb.AddTorque(randomTorque, ForceMode.Impulse);
+        Destroy(gameObject, 1f);
+        Debug.Log("nigga");
     }
 
     void ChooseAttack()
@@ -137,7 +148,7 @@ public class Boss2 : Enemy
         }
         else
         {
-            if (Vector3.Distance(playerPos, transform.position) > 5 && firstPhase)
+            if (Vector3.Distance(playerPos, transform.position) > .5f && firstPhase)
             {
                 transform.position = Vector3.Lerp(transform.position, playerPos, attackSpeed * Time.deltaTime);
                 
@@ -154,7 +165,7 @@ public class Boss2 : Enemy
 
             if (!firstPhase && !secondPhase)
             {
-                if (Vector3.Distance(transform.position, originalPosition) > 1f)
+                if (Vector3.Distance(transform.position, originalPosition) > .1f)
                 {
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -15), rotationSpeed*Time.deltaTime); ;
 
@@ -306,6 +317,14 @@ public class Boss2 : Enemy
     {
         lastAttack = Time.time + waitTime;
 
+    }
+    public void UpdateHearts()
+    {
+        hearts[(int)health].GetComponent<Rigidbody>().useGravity = true;
+        Rigidbody heartsRb = hearts[(int)health].GetComponent<Rigidbody>();
+        Vector3 randomTorque = new Vector3(0, UnityEngine.Random.Range(3, 10), 0);
+        heartsRb.AddTorque(randomTorque, ForceMode.Impulse);
+        Destroy(hearts[(int)health], 2f);
     }
 
 }

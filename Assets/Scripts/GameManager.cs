@@ -120,13 +120,19 @@ public class GameManager : MonoBehaviour
                 
         }
         if (boss1 != null)
-                {
-                    if (boss1.health <= 0)
-                    {
-                        close = true;
-                    }
-                }
-        
+        {
+            if (boss1.health <= 0 )
+            {
+                close = true;
+            }
+        }
+        if(boss2 != null)
+        {
+            if(boss2.health <= 0)
+            {
+                close = true;
+            }
+        }
     }
 
     void ResetVariables()
@@ -217,7 +223,15 @@ public class GameManager : MonoBehaviour
             if (curtainRight.transform.localScale.x >= 1)
             {
                 close = false;
-                ChangeScene("Menu");
+                if(SceneManager.GetActiveScene().name == scene1)
+                { 
+                    ChangeScene("Ferran");
+                    defeatedEnemies++;
+                }
+                if (SceneManager.GetActiveScene().name == scene2)
+                {
+                    ChangeScene("WinScreen");
+                }
             }
         }
     }
@@ -227,6 +241,7 @@ public class GameManager : MonoBehaviour
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+        ResetVariables();
     }
     IEnumerator curtainsTrigger()
     {

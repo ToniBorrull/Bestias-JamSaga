@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Toni.unity
     guid: a02fd3048d051ec48a5aa5f2b0e977f0
+  - enabled: 1
+    path: Assets/Scenes/Ferran.unity
+    guid: d4f8ab1403e46f443a65afc98655a1a6
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: f3554ee8a62543f45b7db873c2fed24d
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: c79af9e5bf0b8e44fb97a053a546177f
   m_configObjects: {}

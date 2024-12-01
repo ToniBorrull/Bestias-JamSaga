@@ -81,7 +81,7 @@ public class Boss1 : Enemy
     protected override void Die()
     {
         rb = GetComponent<Rigidbody>();
-        Vector3 randomTorque = new Vector3(0, UnityEngine.Random.Range(3, 10), 0);
+        Vector3 randomTorque = new Vector3(UnityEngine.Random.Range(2, 5), UnityEngine.Random.Range(3, 10), UnityEngine.Random.Range(2, 3));
         rb.AddTorque(randomTorque, ForceMode.Impulse);
         Destroy(gameObject, 1f);
     }

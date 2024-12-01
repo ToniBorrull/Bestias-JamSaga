@@ -10,6 +10,7 @@ TagManager:
   - LeftCurtain
   - Foco
   - returnNubol
+  - BossAttack
   layers:
   - Default
   - TransparentFX
