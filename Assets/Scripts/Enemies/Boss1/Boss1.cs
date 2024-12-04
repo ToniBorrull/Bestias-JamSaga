@@ -159,7 +159,7 @@ public class Boss1 : Enemy
         else
         {
             animator.SetTrigger("Shoot");
-            SoundManager.instance.PlaySFXClip(fireballSound, transform, 1f);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Fireball", GetComponent<Transform>().position);
             Debug.Log("HaSonado");
         }
     }

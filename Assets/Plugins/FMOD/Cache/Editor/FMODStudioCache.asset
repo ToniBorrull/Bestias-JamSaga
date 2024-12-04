@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/Fmod/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638685940902297595
+  lastModified: 638686422648693636
   FileSizes:
   - Name: 
-    Value: 944
+    Value: 1104
   Exists: 1
 --- !u!114 &-7242459114741212942
 MonoBehaviour:
@@ -62,9 +62,90 @@ MonoBehaviour:
   Path: Assets/Fmod/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638685940902237601
+  lastModified: 638686422648673638
   FileSizes: []
   Exists: 1
+--- !u!114 &-7089271359624246538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Fireball
+  m_EditorClassIdentifier: 
+  Path: event:/Fireball
+  Guid:
+    Data1: 1180352562
+    Data2: 1180446206
+    Data3: 2067933069
+    Data4: 2001225102
+  Banks:
+  - {fileID: -7242459114741212942}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4988337940791620238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ouch
+  m_EditorClassIdentifier: 
+  Path: event:/Ouch
+  Guid:
+    Data1: 984066404
+    Data2: 1167204346
+    Data3: -1093597563
+    Data4: -582432443
+  Banks:
+  - {fileID: -7242459114741212942}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4272829214266090140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Polea
+  m_EditorClassIdentifier: 
+  Path: event:/Polea
+  Guid:
+    Data1: 385999842
+    Data2: 1191468228
+    Data3: 175159707
+    Data4: -1024402189
+  Banks:
+  - {fileID: -7242459114741212942}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2530
 --- !u!114 &-2432830543141666359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,12 +194,16 @@ MonoBehaviour:
   - {fileID: 3420712261071374004}
   - {fileID: 5523556764088536528}
   - {fileID: 5184808932830907742}
+  - {fileID: -7089271359624246538}
+  - {fileID: 5594690127153912147}
+  - {fileID: -4988337940791620238}
+  - {fileID: -4272829214266090140}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7242459114741212942}
   StringsBanks:
   - {fileID: -7554216205913608398}
-  cacheTime: 638685940902297595
+  cacheTime: 638686422648693636
   cacheVersion: 131621
 --- !u!114 &2131544429028752984
 MonoBehaviour:
@@ -266,6 +351,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 24322
+--- !u!114 &5594690127153912147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Beastlife
+  m_EditorClassIdentifier: 
+  Path: event:/Beastlife
+  Guid:
+    Data1: 756590097
+    Data2: 1218512265
+    Data3: -736904822
+    Data4: 981067190
+  Banks:
+  - {fileID: -7242459114741212942}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5772044040491701283
 MonoBehaviour:
   m_ObjectHideFlags: 0

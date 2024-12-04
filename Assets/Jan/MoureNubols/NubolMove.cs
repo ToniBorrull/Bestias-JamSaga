@@ -27,10 +27,7 @@ public class NubolMove : MonoBehaviour
 
     void ChangeVelocity()
     {
-
-        Random.Range(0.15f, 1);
-
-        velocity = Random.Range(0.15f, 1);
+        velocity = Random.Range(0.15f, 0.5f);
     }
 
     private void OnTriggerEnter(Collider other)

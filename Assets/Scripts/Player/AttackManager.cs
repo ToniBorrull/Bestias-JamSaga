@@ -105,8 +105,8 @@ public class AttackManager : MonoBehaviour
             vectorDirector.Normalize();
         }
         Debug.Log(vectorDirector);
-        GameObject _ = Instantiate(firstAttack, transform.position + vectorDirector, Quaternion.identity);
-        _.GetComponent<Rigidbody>().AddForce(vectorDirector * fireballForce);
+        GameObject _ = Instantiate(firstAttack, transform.position + vectorDirector*.5f, Quaternion.identity);
+        _.GetComponent<Rigidbody>().AddForce(vectorDirector * fireballForce * Time.deltaTime);
         Destroy(_,3);
     }
 
@@ -119,6 +119,10 @@ public class AttackManager : MonoBehaviour
             Debug.Log("E");
             if (!en.isFighting)
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/ClothCollision", GetComponent<Transform>().position);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Beastlife", GetComponent<Transform>().position);
+
+
                 en.TakeDamage(1);
                 en.UpdateHearts();
                 Knockback();
@@ -126,6 +130,9 @@ public class AttackManager : MonoBehaviour
             }
             else
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/ClothCollision", GetComponent<Transform>().position);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Ouch", GetComponent<Transform>().position);
+
                 player.TakeDamage(1);
                 Knockback();
             }
@@ -136,12 +143,18 @@ public class AttackManager : MonoBehaviour
         {
             if (en2.stunned)
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/ClothCollision", GetComponent<Transform>().position);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Beastlife", GetComponent<Transform>().position);
+
                 en2.TakeDamage(1);
                 en2.UpdateHearts();
                 Knockback();
             }
             else
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/ClothCollision", GetComponent<Transform>().position);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Ouch", GetComponent<Transform>().position);
+
                 player.TakeDamage(1);
             }
         }

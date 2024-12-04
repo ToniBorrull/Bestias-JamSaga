@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
   
     void Start()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/PlaygameMusic", GetComponent<Transform>().position);
+
         fightOn = false;
         paused = false;
         open = false;
